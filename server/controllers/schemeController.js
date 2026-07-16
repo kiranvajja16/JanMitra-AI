@@ -1,6 +1,7 @@
 const Scheme = require('../models/Scheme');
 const schemes = require('../data/schemes');
 const calculateEligibility= require('../utils/calculateEligibility');
+const { ELIGIBLE_SCORE } = require("../utils/constants");
 
 const seedSchemes = async (req,res)=>{
     try{
@@ -39,15 +40,27 @@ const getAllSchemes= async(req,res)=>{
 
 const checkEligibility = async (req,res)=>{
     try{
-        const MINIMUM_SCORE = 70;
-        const schemes= await Scheme.find();
+
+        const schemes = await Scheme.find(
+        {},
+        {
+            schemeName:1,
+            category:1,
+            state:1,
+            eligibility:1,
+            benefits:1,
+            requiredDocuments:1,
+            officialLink:1,
+            description:1
+        });
         const recommendations = calculateEligibility(req.body, schemes);
+
         const eligibleSchemes = recommendations.filter(
-            (scheme) => scheme.score >= MINIMUM_SCORE
+            scheme => scheme.score >= ELIGIBLE_SCORE
         );
 
         const otherSchemes = recommendations.filter(
-                scheme => scheme.score >= 30 && scheme.score < MINIMUM_SCORE
+            scheme => scheme.score >= 30 && scheme.score < ELIGIBLE_SCORE
         );
 
         res.json({
@@ -69,4 +82,4 @@ const checkEligibility = async (req,res)=>{
 }
 
 
-module.exports={seedSchemes,getAllSchemes,checkEligibility}
+module.exports={seedSchemes,getAllSchemes,checkEligibility};

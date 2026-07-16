@@ -1,3 +1,8 @@
+const {
+    EXCELLENT_SCORE,
+    GOOD_SCORE,
+    AVERAGE_SCORE
+} = require("./constants");
 const calculateEligibility = (user,schemes) => {
     const recommendations = [];
     schemes.forEach((scheme)=>{
@@ -70,14 +75,15 @@ const calculateEligibility = (user,schemes) => {
             missingCriteria.push('State');
         }
 
-        let matchLevel="Not Eligible";
-        if(score>=90){
+        let matchLevel = "Not Eligible";
+
+        if (score >= EXCELLENT_SCORE) {
             matchLevel = "Excellent";
         }
-        else if(score >=70){
+        else if (score >= GOOD_SCORE) {
             matchLevel = "Good";
         }
-        else if (score >=50){
+        else if (score >= AVERAGE_SCORE) {
             matchLevel = "Average";
         }
 
@@ -89,6 +95,7 @@ const calculateEligibility = (user,schemes) => {
             state: scheme.state,
             score,
             matchLevel,
+            eligible : score >=GOOD_SCORE,
             matchedCriteria,
             missingCriteria,
             benefits : scheme.benefits,
@@ -98,6 +105,9 @@ const calculateEligibility = (user,schemes) => {
 
     });
     recommendations.sort((a,b) => b.score - a.score);
+    recommendations.forEach((scheme,index)=>{
+        scheme.rank=index+1;
+    });
     return recommendations;
 }
 
