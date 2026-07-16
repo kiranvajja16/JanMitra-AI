@@ -1,5 +1,6 @@
 const Scheme = require('../models/Scheme');
 const schemes = require('../data/schemes');
+const calculateEligibility= require('../utils/calculateEligibility');
 
 const seedSchemes = async (req,res)=>{
     try{
@@ -38,52 +39,25 @@ const getAllSchemes= async(req,res)=>{
 
 const checkEligibility = async (req,res)=>{
     try{
-        const {age,gender,occupation,education,category,
-            income,state,
-        }=req.body;
+        const MINIMUM_SCORE = 70;
         const schemes= await Scheme.find();
-        const eligibleSchemes = schemes.filter((scheme)=>{
-            const e=scheme.eligibility;
-            const ageMatch=
-            age >= e.minAge &&
-            age <= e.maxAge;
-            
-            const genderMatch=
-            e.gender === "Any" ||
-            e.gender.toLowerCase() === gender.toLowerCase();
+        const recommendations = calculateEligibility(req.body, schemes);
+        const eligibleSchemes = recommendations.filter(
+            (scheme) => scheme.score >= MINIMUM_SCORE
+        );
 
-            const occupationMatch = 
-            e.occupation === "Any" ||
-            e.occupation.toLowerCase() === occupation.toLowerCase();
+        const otherSchemes = recommendations.filter(
+                scheme => scheme.score >= 30 && scheme.score < MINIMUM_SCORE
+        );
 
-            const educationMatch  = 
-            e.education === "Any" ||
-            e.education.toLowerCase() === education.toLowerCase();
-            
-            const categoryMatch = 
-            e.category === "Any" ||
-            e.category.toLowerCase().includes(category.toLowerCase());
-
-            const incomeMatch = 
-            income <= e.maxIncome;
-
-            const stateMatch =
-            scheme.state === "India" ||
-            scheme.state.toLowerCase() === state.toLowerCase();
-            
-            return (
-                ageMatch && genderMatch &&
-                occupationMatch && educationMatch &&
-                categoryMatch && incomeMatch &&
-                stateMatch
-            );
-            
-        });
         res.json({
-            success:true,
-            totalEligible : eligibleSchemes.length,
-            schemes : eligibleSchemes,
-        });
+            success: true,
+            totalSchemes: recommendations.length,
+            totalEligible: eligibleSchemes.length,
+            totalOther: otherSchemes.length,
+            eligibleSchemes,
+            otherSchemes
+});
     }
     catch(err){
         console.error(err);
