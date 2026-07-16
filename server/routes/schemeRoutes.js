@@ -1,4 +1,4 @@
-const {seedSchemes,getAllSchemes}=require('../controllers/schemeController')
+const {seedSchemes,getAllSchemes,checkEligibility}=require('../controllers/schemeController')
 
 const express=require('express');
 
@@ -9,5 +9,7 @@ const router=express.Router();
 router.post('/seed',protect,seedSchemes);
 
 router.get('/',protect,getAllSchemes);
+
+router.post('/check-eligibility',protect,checkEligibility);
 
 module.exports=router;
