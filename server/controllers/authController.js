@@ -2,6 +2,8 @@ const User=require('../models/User');
 const bcrypt = require('bcryptjs');
 
 const registerUser = async(req,res)=>{
+    console.log("Register API hit");
+    console.log(req.body);
     try{
         const {name,email,password}=req.body;
 
@@ -37,12 +39,13 @@ const registerUser = async(req,res)=>{
         });
     }
     catch(error){
-        console.log(error);
-        res.status(500).json({
-            success:false,
-            message:'Internal Server Error',
+        console.error("REGISTER ERROR:");
+        console.error(error.stack);
+
+        return res.status(500).json({
+            success: false,
+            error: error.message,
         });
     }
 };
-
 module.exports={registerUser}; 
