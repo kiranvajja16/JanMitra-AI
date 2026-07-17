@@ -1,6 +1,7 @@
 const Scheme = require('../models/Scheme');
 const schemes = require('../data/schemes');
 const calculateEligibility= require('../utils/calculateEligibility');
+const generateRecommendation = require('../services/geminiService');
 const { ELIGIBLE_SCORE } = require("../utils/constants");
 
 const seedSchemes = async (req,res)=>{
@@ -59,6 +60,12 @@ const checkEligibility = async (req,res)=>{
             scheme => scheme.score >= ELIGIBLE_SCORE
         );
 
+        const topSchemes = eligibleSchemes.slice(0,5);
+        const aiExplanation = await generateRecommendation(
+            req.body,
+            topSchemes
+        );
+
         const otherSchemes = recommendations.filter(
             scheme => scheme.score >= 30 && scheme.score < ELIGIBLE_SCORE
         );
@@ -69,7 +76,8 @@ const checkEligibility = async (req,res)=>{
             totalEligible: eligibleSchemes.length,
             totalOther: otherSchemes.length,
             eligibleSchemes,
-            otherSchemes
+            otherSchemes,
+            aiExplanation
 });
     }
     catch(err){
