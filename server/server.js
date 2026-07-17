@@ -6,10 +6,10 @@ const connectDB = require("./config/db");
 
 const PORT = process.env.PORT || 3000;
 
-// Connect Database
+
 connectDB();
 
-// Start Server
+
 app.listen(PORT, "127.0.0.1", () => {
     console.log(` Server is running on http://127.0.0.1:${PORT}`);
 });

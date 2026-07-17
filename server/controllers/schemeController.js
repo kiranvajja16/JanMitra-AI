@@ -1,4 +1,5 @@
 const Scheme = require('../models/Scheme');
+const History = require('../models/History')
 const schemes = require('../data/schemes');
 const calculateEligibility= require('../utils/calculateEligibility');
 const generateRecommendation = require('../services/geminiService');
@@ -66,9 +67,19 @@ const checkEligibility = async (req,res)=>{
             topSchemes
         );
 
+
         const otherSchemes = recommendations.filter(
             scheme => scheme.score >= 30 && scheme.score < ELIGIBLE_SCORE
         );
+        
+        console.log("req.user in controller:", req.user);
+        await History.create({
+            user: req.user._id,
+            citizenProfile:req.body,
+            eligibleSchemes,
+            otherSchemes,
+            aiRecommendation:aiExplanation
+        });
 
         res.json({
             success: true,

@@ -3,18 +3,19 @@ const cors = require("cors");
 
 const authRoutes = require("./routes/authRoutes");
 const schemeRoutes=require('./routes/schemeRoutes');
+const historyRoutes=require('./routes/historyRoutes');
 
 const app = express();
 
-// Middleware
+
 app.use(cors());
 app.use(express.json());
 
-// Routes
+
 app.use("/api/auth", authRoutes);
 app.use('/api/schemes',schemeRoutes);
+app.use('/api/history',historyRoutes);
 
-// Root Route
 app.get("/", (req, res) => {
     res.json({
         success: true,
