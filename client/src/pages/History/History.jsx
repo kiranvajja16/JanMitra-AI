@@ -12,6 +12,7 @@ const History = () => {
   const fetchHistory = useCallback( async () => {
     try {
       const data = await getHistory();
+      console.log("History API Response:", data);
       setHistory(data.history);
     } catch (err) {
       console.error(err);
@@ -97,9 +98,23 @@ const History = () => {
                   AI Recommendation
                 </h3>
 
-                <p className="text-gray-700">
-                  {item.aiRecommendation}
-                </p>
+                <div className="mt-5">
+                    <h3 className="font-semibold text-blue-600 mb-2">
+                      AI Recommendation
+                    </h3>
+
+                    <p className="text-gray-700">
+                      {item.aiRecommendation?.summary || "No summary available"}
+                    </p>
+
+                    <div className="mt-3 bg-blue-50 p-3 rounded-lg">
+                      <strong>Final Advice</strong>
+
+                      <p className="mt-2">
+                        {item.aiRecommendation?.finalAdvice || "No advice available"}
+                      </p>
+                    </div>
+                  </div>
               </div>
             </div>
           ))}

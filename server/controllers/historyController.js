@@ -3,8 +3,12 @@ const History = require("../models/History");
 
 const getHistory = async (req, res) => {
   try {
+    console.log("Logged in user:", req.user._id);
+
     const history = await History.find({ user: req.user._id })
       .sort({ createdAt: -1 });
+
+    console.log("History:", history);
 
     res.json({
       success: true,
@@ -12,10 +16,12 @@ const getHistory = async (req, res) => {
       history,
     });
   } catch (err) {
-    console.error(err);
+    console.error("GET HISTORY ERROR:", err);
+
     res.status(500).json({
       success: false,
-      message: "Server Error",
+      message: err.message,
+      stack: err.stack,
     });
   }
 };
