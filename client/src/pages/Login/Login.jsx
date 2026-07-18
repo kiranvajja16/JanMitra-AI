@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import logo from '../../assets/logo.png';
 
 const Login = ()=>{
     const navigate=useNavigate();
@@ -51,13 +52,21 @@ const Login = ()=>{
       onSubmit={handleSubmit}
       className="w-full max-w-md bg-white p-10 rounded-2xl shadow-xl"
     >
-      <h1 className="text-5xl font-bold text-center text-blue-600 mb-2">
-      JanMitra AI
+      <div className="flex flex-col items-center mb-8">
+      <img
+        src={logo}
+        alt="JanMitra AI Logo"
+        className="w-24 h-24 mb-3"
+      />
+
+      <h1 className="text-4xl font-bold text-blue-700">
+        JanMitra AI
       </h1>
 
-      <p className="text-center text-gray-500 mb-8">
+      <p className="text-gray-500 text-center mt-2">
         Government Scheme Recommendation System
       </p>
+  </div>
 
       {error && (
         <p className="mb-4 text-center text-red-500">
