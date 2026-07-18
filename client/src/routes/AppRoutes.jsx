@@ -7,6 +7,7 @@ import Register from "../pages/Register/Register";
 import Eligibility from "../pages/Eligibility/Eligibility";
 import Results from "../pages/Results/Results";
 import History from "../pages/History/History";
+import Profile from "../pages/Profile/Profile";
 
 const AppRoutes = () => {
   return (
@@ -19,6 +20,7 @@ const AppRoutes = () => {
       <Route path="/eligibility" element={<Eligibility />} />
       <Route path="/results" element={<Results />}/>
       <Route path="/history" element={<History />} />
+      <Route path="/profile" element={<Profile />} />
     </Routes>
   );
 };

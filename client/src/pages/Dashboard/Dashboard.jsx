@@ -41,22 +41,22 @@ useEffect(() => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
         <DashboardCard
-  title="Recommendations"
-  value={stats.totalChecks}
-  color="text-blue-600"
-/>
+          title="Recommendations"
+          value={stats.totalChecks}
+          color="text-blue-600" 
+        />
 
-<DashboardCard
-  title="Eligible Schemes"
-  value={stats.totalEligible}
-  color="text-green-600"
-/>
+        <DashboardCard
+          title="Eligible Schemes"
+          value={stats.totalEligible}
+          color="text-green-600"
+        />
 
-<DashboardCard
-  title="History"
-  value={stats.totalHistory}
-  color="text-purple-600"
-/>
+        <DashboardCard
+          title="History"
+          value={stats.totalHistory}
+          color="text-purple-600"
+        />
       </div>
     </MainLayout>
   );

@@ -5,39 +5,90 @@ const ai = new GoogleGenAI({
 });
 
 const generateRecommendation = async (user, schemes) => {
-  const prompt = `
+const prompt = `
 You are JanMitra AI.
 
 Citizen Profile:
 ${JSON.stringify(user, null, 2)}
 
-Top Eligible Government Schemes:
+Eligible Government Schemes:
 ${JSON.stringify(schemes, null, 2)}
 
-Generate a response with:
+Return ONLY valid JSON.
 
-1. Short summary
-2. Why the citizen is eligible
-3. Benefits of each scheme
-4. Required documents
-5. Next steps to apply
+Use exactly this format:
 
-Keep the language simple and encouraging.
-Do not invent any scheme details.
-Use only the information provided.
+{
+  "summary": "Short summary of the citizen's eligibility.",
+  "schemes": [
+    {
+      "name": "Scheme Name",
+      "whyEligible": [
+        "Reason 1",
+        "Reason 2"
+      ],
+      "benefits": [
+        "Benefit 1",
+        "Benefit 2"
+      ],
+      "documents": [
+        "Document 1",
+        "Document 2"
+      ],
+      "nextSteps": [
+        "Step 1",
+        "Step 2"
+      ]
+    }
+  ],
+  "finalAdvice": "A short concluding recommendation."
+}
+
+Rules:
+- Return ONLY JSON.
+- Do not wrap it inside markdown.
+- Do not use \`\`\`json.
+- Do not include any extra text.
 `;
 
   try {
-    const response = await ai.models.generateContent({
-      model: "gemini-flash-latest",
-      contents: prompt,
-    });
+  const response = await ai.models.generateContent({
+    model: "gemini-flash-latest",
+    contents: prompt,
+  });
 
-    return response.text;
-  } catch (error) {
-    console.error("Gemini Error:", error);
-    throw error;
+  let text = response.text.trim();
+
+  
+  text = text.replace(/```json/gi, "");
+  text = text.replace(/```/g, "");
+  text = text.trim();
+
+  try {
+    return JSON.parse(text);
+  } catch (parseError) {
+    console.error("JSON Parse Error:", parseError);
+    console.log("Gemini Response:", text);
+
+    return {
+      summary:
+        "AI generated a response, but it was not in the expected JSON format.",
+      schemes: [],
+      finalAdvice:
+        "Please review the eligible schemes listed below.",
+    };
   }
+} catch (error) {
+  console.error("Gemini Error:", error.message);
+
+  return {
+    summary:
+      "AI recommendation is temporarily unavailable.",
+    schemes: [],
+    finalAdvice:
+      "Please review the eligible schemes listed below.",
+  };
+}
 };
 
 module.exports = generateRecommendation;

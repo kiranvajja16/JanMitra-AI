@@ -7,15 +7,18 @@ const historySchema = new mongoose.Schema(
             ref:"User",
             required:true,
         },
-        citizenProfile:{
-            age:Number,
-            gender:String,
-            occupation:String,
-            education:String,
-            category:String,
-            income:Number,
-            state:String,
-        },
+        citizenProfile: {
+    age: Number,
+    gender: String,
+    occupation: String,
+    education: String,
+    category: String,
+    annualIncome: Number,
+    state: String,
+    isFarmer: Boolean,
+    isStudent: Boolean,
+    isDisabled: Boolean,
+},
         eligibleSchemes:[
             {
                 type:mongoose.Schema.Types.Mixed,
@@ -26,9 +29,19 @@ const historySchema = new mongoose.Schema(
                 type:mongoose.Schema.Types.Mixed,
             },
         ],
-        aiRecommendation:{
-            type:String,
+        aiRecommendation: {
+    summary: String,
+    schemes: [
+        {
+            name: String,
+            whyEligible: [String],
+            benefits: [String],
+            documents: [String],
+            nextSteps: [String],
         },
+    ],
+    finalAdvice: String,
+},
     },{
         timestamps:true,
     }

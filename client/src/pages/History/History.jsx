@@ -7,9 +7,7 @@ const History = () => {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchHistory();
-  }, [fetchHistory]);
+  
 
   const fetchHistory = useCallback( async () => {
     try {
@@ -22,6 +20,9 @@ const History = () => {
       setLoading(false);
     }
   },[]);
+  useEffect(() => {
+    fetchHistory();
+  }, [fetchHistory]);
 
   const handleDelete = async (id) => {
     try {
@@ -62,7 +63,9 @@ const History = () => {
             >
               <div className="flex justify-between items-center">
                 <h2 className="font-bold text-lg">
-                  {new Date(item.createdAt).toLocaleString()}
+                  {item.createdAt
+  ? new Date(item.createdAt).toLocaleString()
+  : "No Date"}
                 </h2>
 
                 <button
@@ -77,14 +80,14 @@ const History = () => {
                 <div className="bg-green-100 rounded-lg p-4">
                   <h3 className="font-semibold">Eligible Schemes</h3>
                   <p className="text-2xl font-bold">
-                    {item.eligibleSchemes.length}
+                    {item.eligibleSchemes?.length || 0}
                   </p>
                 </div>
 
                 <div className="bg-yellow-100 rounded-lg p-4">
                   <h3 className="font-semibold">Other Schemes</h3>
                   <p className="text-2xl font-bold">
-                    {item.otherSchemes.length}
+                    {item.otherSchemes?.length || 0}
                   </p>
                 </div>
               </div>

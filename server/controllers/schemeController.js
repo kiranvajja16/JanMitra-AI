@@ -43,6 +43,7 @@ const getAllSchemes= async(req,res)=>{
 const checkEligibility = async (req,res)=>{
     try{
 
+        console.log("1. Fetching schemes...");
         const schemes = await Scheme.find(
         {},
         {
@@ -55,13 +56,21 @@ const checkEligibility = async (req,res)=>{
             officialLink:1,
             description:1
         });
+
+
+        console.log("2. Calculating eligibility...");
         const recommendations = calculateEligibility(req.body, schemes);
 
+
+
+        console.log("3. Filtering eligible schemes...");
         const eligibleSchemes = recommendations.filter(
             scheme => scheme.score >= ELIGIBLE_SCORE
         );
 
         const topSchemes = eligibleSchemes.slice(0,5);
+
+        console.log("4. Calling Gemini...");
         const aiExplanation = await generateRecommendation(
             req.body,
             topSchemes
@@ -73,6 +82,12 @@ const checkEligibility = async (req,res)=>{
         );
         
         console.log("req.user in controller:", req.user);
+
+        console.log("5. Gemini completed");
+
+        console.log("6. Saving history...");
+
+
         await History.create({
             user: req.user._id,
             citizenProfile:req.body,
@@ -80,6 +95,10 @@ const checkEligibility = async (req,res)=>{
             otherSchemes,
             aiRecommendation:aiExplanation
         });
+
+        console.log("7. History saved");
+
+        console.log("8. Sending response...");
 
         res.json({
             success: true,

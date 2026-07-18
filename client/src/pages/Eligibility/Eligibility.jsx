@@ -32,17 +32,19 @@ const Eligibility = () => {
   try {
     const data = await checkEligibility(formData);
 
-    const navigate = useNavigate();
-
     navigate("/results", {
       state: {
         data,
       },
     });
   } catch (err) {
-    console.error(err);
-    alert("Failed to check eligibility.");
-  }
+  console.error("Full Error:", err);
+  console.error("Response:", err.response);
+  console.error("Data:", err.response?.data);
+  console.error("Status:", err.response?.status);
+
+  alert("Failed to check eligibility.");
+}
 };
 
   return (
