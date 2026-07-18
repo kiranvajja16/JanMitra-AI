@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useCallback} from "react";
 import MainLayout from "../../layouts/MainLayout";
 import { getHistory, deleteHistory } from "../../services/historyService";
 import { toast } from "react-hot-toast";
@@ -9,9 +9,9 @@ const History = () => {
 
   useEffect(() => {
     fetchHistory();
-  }, []);
+  }, [fetchHistory]);
 
-  const fetchHistory = async () => {
+  const fetchHistory = useCallback( async () => {
     try {
       const data = await getHistory();
       setHistory(data.history);
@@ -21,7 +21,7 @@ const History = () => {
     } finally {
       setLoading(false);
     }
-  };
+  },[]);
 
   const handleDelete = async (id) => {
     try {

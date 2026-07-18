@@ -76,8 +76,34 @@ const deleteHistory = async (req, res) => {
   }
 };
 
+const getDashboardStats = async (req, res) => {
+  try {
+    const history = await History.find({ user: req.user._id });
+
+    const totalChecks = history.length;
+
+    const totalEligible = history.reduce(
+      (sum, item) => sum + item.eligibleSchemes.length,
+      0
+    );
+
+    res.json({
+      success: true,
+      totalChecks,
+      totalEligible,
+      totalHistory: history.length,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
 module.exports = {
   getHistory,
   getHistoryById,
   deleteHistory,
+  getDashboardStats,
 };
