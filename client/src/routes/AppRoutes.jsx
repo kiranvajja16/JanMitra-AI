@@ -13,6 +13,9 @@ import ManageUsers from "../pages/Admin/ManageUsers";
 import ManageSchemes from "../pages/Admin/ManageSchemes";
 import AddScheme from "../pages/Admin/AddScheme";
 import EditScheme from "../pages/Admin/EditScheme";
+import AdminHistory from "../pages/Admin/AdminHistory";
+import HistoryDetails from "../pages/Admin/HistoryDetails";
+import Reports from "../pages/Admin/Reports";
 
 const AppRoutes = () => {
   return (
@@ -63,6 +66,31 @@ const AppRoutes = () => {
             </AdminRoute>
           }
         />
+        <Route
+        path="/admin/history"
+        element={
+          <AdminRoute>
+            <AdminHistory />
+          </AdminRoute>
+        }
+      />
+
+      <Route
+        path="/admin/history/:id"
+        element={
+          <AdminRoute>
+            <HistoryDetails />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/admin/reports"
+        element={
+          <AdminRoute>
+            <Reports />
+          </AdminRoute>
+        }
+      />
       <Route path="/eligibility" element={<Eligibility />} />
       <Route path="/results" element={<Results />}/>
       <Route path="/history" element={<History />} />

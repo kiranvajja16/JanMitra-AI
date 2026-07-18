@@ -113,25 +113,89 @@ const getReports = async (req, res) => {
     const totalSchemes = await Scheme.countDocuments();
     const totalHistory = await History.countDocuments();
 
-    const history = await History.find();
 
-    let totalEligible = 0;
+    const histories = await History.find();
 
-    history.forEach(item => {
-      totalEligible += item.eligibleSchemes.length;
-    });
+    const totalEligible = histories.reduce(
+      (sum, item) => sum + (item.eligibleSchemes?.length || 0),
+      0
+    );
 
     const averageEligible =
-      history.length === 0
-        ? 0
-        : (totalEligible / history.length).toFixed(1);
+      totalHistory > 0
+        ? (totalEligible / totalHistory).toFixed(1)
+        : 0;
+
+    const schemes = await Scheme.find();
+
+    const categoryMap = {};
+
+    schemes.forEach((scheme) => {
+      categoryMap[scheme.category] =
+        (categoryMap[scheme.category] || 0) + 1;
+    });
+
+    const categoryData = Object.keys(categoryMap).map((key) => ({
+      name: key,
+      value: categoryMap[key],
+    }));
+
+
+    const stateMap = {};
+
+    histories.forEach((history) => {
+      const state = history.citizenProfile?.state || "Unknown";
+
+      stateMap[state] = (stateMap[state] || 0) + 1;
+    });
+
+    const stateData = Object.keys(stateMap).map((key) => ({
+      state: key,
+      users: stateMap[key],
+    }));
+
+  
+    const schemeMap = {};
+
+    histories.forEach((history) => {
+      history.eligibleSchemes?.forEach((scheme) => {
+        const name = scheme.schemeName;
+
+        schemeMap[name] = (schemeMap[name] || 0) + 1;
+      });
+    });
+
+    const topSchemes = Object.entries(schemeMap)
+      .map(([name, count]) => ({
+        name,
+        count,
+      }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 5);
+
+
+    const recentHistory = await History.find()
+      .populate("user", "name email")
+      .sort({ createdAt: -1 })
+      .limit(8);
 
     res.json({
       success: true,
-      totalUsers,
-      totalSchemes,
-      totalHistory,
-      averageEligible,
+
+      stats: {
+        totalUsers,
+        totalSchemes,
+        totalHistory,
+        averageEligible,
+      },
+
+      categoryData,
+
+      stateData,
+
+      topSchemes,
+
+      recentHistory,
     });
   } catch (error) {
     console.error(error);
@@ -266,12 +330,39 @@ const getSchemeById = async (req, res) => {
   }
 };
 
+const getHistoryById = async (req, res) => {
+  try {
+    const history = await History.findById(req.params.id)
+      .populate("user", "name email");
+
+    if (!history) {
+      return res.status(404).json({
+        success: false,
+        message: "History not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      history,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
 module.exports = {
   getDashboard,
   getUsers,
   deleteUser,
   getAllHistory,
   getReports,
+  getHistoryById,
 
   getSchemes,
   getSchemeById,

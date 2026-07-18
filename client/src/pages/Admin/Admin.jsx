@@ -191,11 +191,13 @@ const Admin = () => {
             Manage Users
           </button>
 
-          <button className="bg-orange-500 hover:bg-orange-600 text-white rounded-xl py-4 font-semibold transition">
+          <button onClick={() => navigate("/admin/history")}
+          className="bg-orange-500 hover:bg-orange-600 text-white rounded-xl py-4 font-semibold transition">
              View History
           </button>
 
-          <button className="bg-purple-600 hover:bg-purple-700 text-white rounded-xl py-4 font-semibold transition">
+          <button  onClick={() => navigate("/admin/reports")}
+          className="bg-purple-600 hover:bg-purple-700 text-white rounded-xl py-4 font-semibold transition">
              Reports
           </button>
 

@@ -15,6 +15,7 @@ const {
   updateScheme,
   deleteScheme,
   getSchemeById,
+  getHistoryById,
 } = require("../controllers/adminController");
 
 router.get(
@@ -86,6 +87,15 @@ router.get(
   adminOnly,
   getSchemeById
 );
+
+router.get(
+  "/history/:id",
+  protect,
+  adminOnly,
+  getHistoryById
+);
+
+
 
 
 module.exports = router;
