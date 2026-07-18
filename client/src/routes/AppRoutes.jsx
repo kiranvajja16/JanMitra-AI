@@ -8,6 +8,11 @@ import Eligibility from "../pages/Eligibility/Eligibility";
 import Results from "../pages/Results/Results";
 import History from "../pages/History/History";
 import Profile from "../pages/Profile/Profile";
+import AdminRoute from "../components/AdminRoute";
+import ManageUsers from "../pages/Admin/ManageUsers";
+import ManageSchemes from "../pages/Admin/ManageSchemes";
+import AddScheme from "../pages/Admin/AddScheme";
+import EditScheme from "../pages/Admin/EditScheme";
 
 const AppRoutes = () => {
   return (
@@ -16,11 +21,53 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/admin" element={<Admin />} />
+      <Route
+        path="/admin"
+        element={
+        <AdminRoute>
+          <Admin/>
+        </AdminRoute>
+      }
+      />
+      <Route
+      path="/admin/users"
+      element={
+      <AdminRoute>
+        <ManageUsers />
+      </AdminRoute>
+      }
+      />
+      <Route
+        path="/admin/schemes"
+        element={
+          <AdminRoute>
+            <ManageSchemes />
+          </AdminRoute>
+        }
+      />
+
+        <Route
+          path="/admin/add-scheme"
+          element={
+            <AdminRoute>
+              <AddScheme />
+            </AdminRoute>
+          }
+        />
+
+        <Route
+          path="/admin/edit-scheme/:id"
+          element={
+            <AdminRoute>
+              <EditScheme />
+            </AdminRoute>
+          }
+        />
       <Route path="/eligibility" element={<Eligibility />} />
       <Route path="/results" element={<Results />}/>
       <Route path="/history" element={<History />} />
       <Route path="/profile" element={<Profile />} />
+      
     </Routes>
   );
 };

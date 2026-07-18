@@ -1,18 +1,12 @@
 const express= require('express');
 
-const {registerUser,loginUser}=require('../controllers/authController');
+const {registerUser,loginUser,getProfile}=require('../controllers/authController');
 const protect = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
 router.post('/register',registerUser);
 router.post('/login',loginUser);
-router.get('/profile',protect,(req,res)=>{
-    res.json({
-        success:true,
-        message:'Welcome to your profile!',
-        user:req.user,
-    });
-});
+router.get("/profile", protect, getProfile);
 
 module.exports=router;

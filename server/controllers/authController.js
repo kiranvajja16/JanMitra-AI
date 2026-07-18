@@ -111,4 +111,22 @@ const loginUser = async(req,res)=>{
     }
 };
 
-module.exports={registerUser,loginUser}; 
+
+const getProfile = async (req, res) => {
+  try {
+    res.json({
+      success: true,
+      user: req.user,
+    });
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
+
+module.exports={registerUser,loginUser,getProfile}; 
