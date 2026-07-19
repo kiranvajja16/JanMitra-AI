@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+
 import api from "../../services/api";
 import SchemeForm from "../../components/SchemeForm";
 import BackButton from "../../components/BackButton";
+
+import gen63 from "../../assets/gen63.jpg";
 
 const AddScheme = () => {
   const navigate = useNavigate();
@@ -80,27 +83,70 @@ const AddScheme = () => {
       navigate("/admin/schemes");
     } catch (error) {
       console.error(error);
+
       toast.error(
-        error.response?.data?.message || "Failed to add scheme"
+        error.response?.data?.message ||
+          "Failed to add scheme"
       );
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 py-10 px-4">
-      <BackButton/>
-      <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-xl p-8">
-        <h1 className="text-3xl font-bold text-blue-700 mb-8">
-          Add Government Scheme
-        </h1>
+    <div
+      className="min-h-screen bg-cover bg-center bg-fixed"
+      style={{
+        backgroundImage: `url(${gen63})`,
+      }}
+    >
+      <div className="min-h-screen bg-black/60 py-10 px-4">
 
-        <SchemeForm
-          formData={formData}
-          handleChange={handleChange}
-          handleEligibilityChange={handleEligibilityChange}
-          handleSubmit={handleSubmit}
-          submitText="Add Scheme"
-        />
+        <div className="max-w-6xl mx-auto">
+
+          <BackButton />
+
+          <div
+            className="
+              mt-6
+              bg-white/10
+              backdrop-blur-2xl
+              border
+              border-white/20
+              rounded-3xl
+              shadow-2xl
+              p-8
+              md:p-10
+            "
+          >
+            <div className="mb-10">
+
+              <h1 className="text-4xl md:text-5xl font-bold text-white">
+                Add Government
+                <span className="text-cyan-400">
+                  {" "}
+                  Scheme
+                </span>
+              </h1>
+
+              <p className="text-gray-300 mt-3">
+                Create a new government welfare scheme with
+                eligibility criteria, benefits and required
+                documents.
+              </p>
+
+            </div>
+
+            <SchemeForm
+              formData={formData}
+              handleChange={handleChange}
+              handleEligibilityChange={handleEligibilityChange}
+              handleSubmit={handleSubmit}
+              submitText="Add Scheme"
+            />
+
+          </div>
+
+        </div>
+
       </div>
     </div>
   );
