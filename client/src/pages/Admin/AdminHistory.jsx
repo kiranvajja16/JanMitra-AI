@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import api from "../../services/api";
 import BackButton from "../../components/BackButton";
+import GlassCard from "../../components/GlassCard";
+import GlassButton from "../../components/GlassButton";
+import GlassInput from "../../components/GlassInput";
+import PageTitle from "../../components/PageTitle";
 
 const AdminHistory = () => {
   const navigate = useNavigate();
@@ -47,60 +51,72 @@ const AdminHistory = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex justify-center items-center text-xl">
+      <div className="min-h-screen flex justify-center items-center text-white text-xl">
         Loading...
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 p-8">
-      <BackButton/>
+    <div className="min-h-screen">
+      <BackButton />
+
       <div className="max-w-7xl mx-auto">
 
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold text-blue-700">
-            Recommendation History
-          </h1>
-        </div>
+        <div className="flex flex-col md:flex-row justify-between md:items-center gap-6 mb-8">
 
-        <div className="relative mb-6">
-          <Search
-            className="absolute left-4 top-3.5 text-gray-400"
-            size={18}
+          <PageTitle
+            title="Recommendation History"
+            subtitle="View all user eligibility checks"
           />
 
-          <input
-            type="text"
-            placeholder="Search by user name or email..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-white border rounded-xl pl-11 pr-4 py-3"
-          />
+          <div className="relative w-full md:w-96">
+
+            <Search
+              size={20}
+              className="absolute left-4 top-3.5 text-white"
+            />
+
+            <GlassInput
+              type="text"
+              placeholder="Search by user name or email..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="pl-12"
+            />
+
+          </div>
+
         </div>
 
-        <div className="bg-white rounded-xl shadow overflow-x-auto">
+        <GlassCard className="overflow-hidden">
 
-          <table className="w-full">
+          <table className="w-full text-white">
 
-            <thead className="bg-blue-600 text-white">
+            <thead className="bg-white/10 backdrop-blur-md">
 
               <tr>
-                <th className="text-left px-5 py-4">User</th>
 
-                <th className="text-left px-5 py-4">Email</th>
+                <th className="px-6 py-4 text-left">
+                  User
+                </th>
 
-                <th className="text-left px-5 py-4">
+                <th className="px-6 py-4 text-left">
+                  Email
+                </th>
+
+                <th className="px-6 py-4 text-left">
                   Eligible Schemes
                 </th>
 
-                <th className="text-left px-5 py-4">
+                <th className="px-6 py-4 text-left">
                   Checked On
                 </th>
 
-                <th className="text-center px-5 py-4">
+                <th className="px-6 py-4 text-center">
                   Action
                 </th>
+
               </tr>
 
             </thead>
@@ -108,59 +124,71 @@ const AdminHistory = () => {
             <tbody>
 
               {filteredHistory.length === 0 ? (
+
                 <tr>
+
                   <td
                     colSpan="5"
-                    className="text-center py-10 text-gray-500"
+                    className="text-center py-10 text-gray-300"
                   >
                     No History Found
                   </td>
+
                 </tr>
+
               ) : (
+
                 filteredHistory.map((item) => (
+
                   <tr
                     key={item._id}
-                    className="border-b hover:bg-slate-50"
+                    className="border-b border-white/10 hover:bg-white/10 transition"
                   >
-                    <td className="px-5 py-4 font-semibold">
+
+                    <td className="px-6 py-5 font-semibold">
                       {item.user?.name || "Unknown User"}
                     </td>
 
-                    <td className="px-5 py-4">
+                    <td className="px-6 py-5 text-gray-300">
                       {item.user?.email || "N/A"}
                     </td>
 
-                    <td className="px-5 py-4">
+                    <td className="px-6 py-5 text-gray-300">
                       {item.eligibleSchemes?.length || 0}
                     </td>
 
-                    <td className="px-5 py-4">
+                    <td className="px-6 py-5 text-gray-300">
                       {new Date(item.createdAt).toLocaleDateString()}
                     </td>
 
-                    <td className="px-5 py-4">
+                    <td className="px-6 py-5">
+
                       <div className="flex justify-center">
 
-                        <button
+                        <GlassButton
                           onClick={() =>
                             navigate(`/admin/history/${item._id}`)
                           }
-                          className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg"
+                          className="p-2 border-cyan-400 text-cyan-300 hover:border-cyan-300"
                         >
                           <Eye size={18} />
-                        </button>
+                        </GlassButton>
 
                       </div>
+
                     </td>
+
                   </tr>
+
                 ))
+
               )}
 
             </tbody>
 
           </table>
 
-        </div>
+        </GlassCard>
 
       </div>
     </div>

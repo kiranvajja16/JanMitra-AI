@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { ArrowLeft } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import api from "../../services/api";
 import BackButton from "../../components/BackButton";
+import GlassCard from "../../components/GlassCard";
+import PageTitle from "../../components/PageTitle";
 
 const HistoryDetails = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
+
 
   const [history, setHistory] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -47,348 +48,406 @@ const HistoryDetails = () => {
   const profile = history.citizenProfile;
 
   return (
-    <div className="min-h-screen bg-slate-100 p-8">
-      <BackButton/>
-      <div className="max-w-6xl mx-auto">
 
-        <button
-          onClick={() => navigate("/admin/history")}
-          className="flex items-center gap-2 mb-6 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
-        >
-          <ArrowLeft size={18} />
-          Back
-        </button>
+  <div className="min-h-screen">
+    <BackButton />
 
-        <h1 className="text-4xl font-bold text-blue-700 mb-8">
-          Recommendation Details
-        </h1>
+    <div className="max-w-6xl mx-auto">
 
-        {/* User Information */}
+      <PageTitle
+        title="Recommendation Details"
+        subtitle="Complete eligibility recommendation history"
+      />
 
-        <div className="bg-white rounded-xl shadow p-6 mb-6">
+      {/* User Information */}
 
-          <h2 className="text-2xl font-bold mb-4">
-            User Information
-          </h2>
+      <GlassCard className="p-8 mt-6 mb-6">
 
-          <div className="grid md:grid-cols-2 gap-4">
+        <h2 className="text-2xl font-bold text-white mb-6">
+          User Information
+        </h2>
 
-            <div>
-              <span className="font-semibold">Name:</span>{" "}
-              {history.user?.name}
-            </div>
+        <div className="grid md:grid-cols-2 gap-6 text-gray-200">
 
-            <div>
-              <span className="font-semibold">Email:</span>{" "}
-              {history.user?.email}
-            </div>
+          <div>
+            <span className="font-semibold text-white">
+              Name:
+            </span>{" "}
+            {history.user?.name}
+          </div>
 
-            <div>
-              <span className="font-semibold">Checked On:</span>{" "}
-              {new Date(history.createdAt).toLocaleString()}
-            </div>
+          <div>
+            <span className="font-semibold text-white">
+              Email:
+            </span>{" "}
+            {history.user?.email}
+          </div>
 
+          <div>
+            <span className="font-semibold text-white">
+              Checked On:
+            </span>{" "}
+            {new Date(history.createdAt).toLocaleString()}
           </div>
 
         </div>
 
-        {/* Citizen Profile */}
+      </GlassCard>
 
-        <div className="bg-white rounded-xl shadow p-6 mb-6">
+      {/* Citizen Profile */}
 
-          <h2 className="text-2xl font-bold mb-4">
-            Citizen Profile
-          </h2>
+      <GlassCard className="p-8 mb-6">
 
-          <div className="grid md:grid-cols-2 gap-4">
+        <h2 className="text-2xl font-bold text-white mb-6">
+          Citizen Profile
+        </h2>
 
-            <div>
-              <strong>Age:</strong> {profile.age}
-            </div>
+        <div className="grid md:grid-cols-2 gap-6 text-gray-200">
 
-            <div>
-              <strong>Gender:</strong> {profile.gender}
-            </div>
+          <div>
+            <strong className="text-white">Age:</strong>{" "}
+            {profile.age}
+          </div>
 
-            <div>
-              <strong>Occupation:</strong> {profile.occupation}
-            </div>
+          <div>
+            <strong className="text-white">Gender:</strong>{" "}
+            {profile.gender}
+          </div>
 
-            <div>
-              <strong>Education:</strong> {profile.education}
-            </div>
+          <div>
+            <strong className="text-white">
+              Occupation:
+            </strong>{" "}
+            {profile.occupation}
+          </div>
 
-            <div>
-              <strong>Category:</strong> {profile.category}
-            </div>
+          <div>
+            <strong className="text-white">
+              Education:
+            </strong>{" "}
+            {profile.education}
+          </div>
 
-            <div>
-              <strong>Annual Income:</strong> ₹
-              {profile.annualIncome}
-            </div>
+          <div>
+            <strong className="text-white">
+              Category:
+            </strong>{" "}
+            {profile.category}
+          </div>
 
-            <div>
-              <strong>State:</strong> {profile.state}
-            </div>
+          <div>
+            <strong className="text-white">
+              Annual Income:
+            </strong>{" "}
+            ₹{profile.annualIncome}
+          </div>
 
-            <div>
-              <strong>Farmer:</strong>{" "}
-              {profile.isFarmer ? "Yes" : "No"}
-            </div>
+          <div>
+            <strong className="text-white">
+              State:
+            </strong>{" "}
+            {profile.state}
+          </div>
 
-            <div>
-              <strong>Student:</strong>{" "}
-              {profile.isStudent ? "Yes" : "No"}
-            </div>
+          <div>
+            <strong className="text-white">
+              Farmer:
+            </strong>{" "}
+            {profile.isFarmer ? "Yes" : "No"}
+          </div>
 
-            <div>
-              <strong>Disabled:</strong>{" "}
-              {profile.isDisabled ? "Yes" : "No"}
-            </div>
+          <div>
+            <strong className="text-white">
+              Student:
+            </strong>{" "}
+            {profile.isStudent ? "Yes" : "No"}
+          </div>
 
+          <div>
+            <strong className="text-white">
+              Disabled:
+            </strong>{" "}
+            {profile.isDisabled ? "Yes" : "No"}
           </div>
 
         </div>
 
-                {/* Eligible Schemes */}
+      </GlassCard>
+            {/* Eligible Schemes */}
 
-        <div className="bg-white rounded-xl shadow p-6 mb-6">
+      <GlassCard className="p-8 mb-6">
 
-          <h2 className="text-2xl font-bold text-green-600 mb-4">
-            Eligible Schemes ({history.eligibleSchemes?.length || 0})
-          </h2>
+        <h2 className="text-2xl font-bold text-green-400 mb-6">
+          Eligible Schemes ({history.eligibleSchemes?.length || 0})
+        </h2>
 
-          {history.eligibleSchemes?.length > 0 ? (
-            <div className="space-y-5">
+        {history.eligibleSchemes?.length > 0 ? (
 
-              {history.eligibleSchemes.map((scheme, index) => (
+          <div className="space-y-6">
 
-                <div
-                  key={index}
-                  className="border rounded-xl p-5 bg-green-50"
-                >
+            {history.eligibleSchemes.map((scheme, index) => (
 
-                  <h3 className="text-xl font-semibold text-blue-700 mb-3">
-                    {scheme.schemeName}
-                  </h3>
+              <div
+                key={index}
+                className="
+                  bg-white/5
+                  border
+                  border-green-500/20
+                  rounded-2xl
+                  p-6
+                  backdrop-blur-md
+                "
+              >
 
-                  <p className="text-gray-700 mb-3">
-                    {scheme.description}
-                  </p>
+                <h3 className="text-2xl font-semibold text-cyan-300 mb-3">
+                  {scheme.schemeName}
+                </h3>
 
-                  <div className="grid md:grid-cols-2 gap-6">
+                <p className="text-gray-300 mb-6">
+                  {scheme.description}
+                </p>
 
-                    <div>
+                <div className="grid md:grid-cols-2 gap-8">
 
-                      <h4 className="font-semibold mb-2">
-                        Benefits
-                      </h4>
+                  <div>
 
-                      <ul className="list-disc list-inside space-y-1">
+                    <h4 className="text-lg font-semibold text-green-300 mb-3">
+                      Benefits
+                    </h4>
 
-                        {scheme.benefits?.map((benefit, i) => (
-                          <li key={i}>{benefit}</li>
-                        ))}
+                    <ul className="list-disc list-inside space-y-2 text-gray-300">
 
-                      </ul>
+                      {scheme.benefits?.map((benefit, i) => (
+                        <li key={i}>{benefit}</li>
+                      ))}
 
-                    </div>
+                    </ul>
 
-                    <div>
+                  </div>
 
-                      <h4 className="font-semibold mb-2">
-                        Required Documents
-                      </h4>
+                  <div>
 
-                      <ul className="list-disc list-inside space-y-1">
+                    <h4 className="text-lg font-semibold text-yellow-300 mb-3">
+                      Required Documents
+                    </h4>
 
-                        {scheme.requiredDocuments?.map((doc, i) => (
-                          <li key={i}>{doc}</li>
-                        ))}
+                    <ul className="list-disc list-inside space-y-2 text-gray-300">
 
-                      </ul>
+                      {scheme.requiredDocuments?.map((doc, i) => (
+                        <li key={i}>{doc}</li>
+                      ))}
 
-                    </div>
+                    </ul>
 
                   </div>
 
                 </div>
 
-              ))}
+              </div>
 
-            </div>
-          ) : (
-            <p>No eligible schemes found.</p>
-          )}
-
-        </div>
-
-        {/* Other Matching Schemes */}
-
-        {history.otherSchemes?.length > 0 && (
-
-          <div className="bg-white rounded-xl shadow p-6 mb-6">
-
-            <h2 className="text-2xl font-bold text-yellow-600 mb-4">
-              Other Matching Schemes
-            </h2>
-
-            <div className="grid md:grid-cols-2 gap-4">
-
-              {history.otherSchemes.map((scheme, index) => (
-
-                <div
-                  key={index}
-                  className="border rounded-lg p-4 bg-yellow-50"
-                >
-
-                  <h3 className="font-semibold">
-                    {scheme.schemeName}
-                  </h3>
-
-                  <p className="text-sm text-gray-600 mt-2">
-                    {scheme.description}
-                  </p>
-
-                </div>
-
-              ))}
-
-            </div>
+            ))}
 
           </div>
 
+        ) : (
+
+          <p className="text-gray-300">
+            No eligible schemes found.
+          </p>
+
         )}
 
-        {/* AI Recommendation */}
+      </GlassCard>
 
-        {history.aiRecommendation && (
+      {/* Other Matching Schemes */}
 
-          <div className="bg-white rounded-xl shadow p-6 mb-6">
+      {history.otherSchemes?.length > 0 && (
 
-            <h2 className="text-2xl font-bold text-purple-700 mb-4">
-              AI Recommendation
-            </h2>
+        <GlassCard className="p-8 mb-6">
 
-            <div className="bg-purple-50 rounded-lg p-4 mb-6">
+          <h2 className="text-2xl font-bold text-yellow-400 mb-6">
+            Other Matching Schemes
+          </h2>
 
-              <h3 className="font-semibold mb-2">
-                Summary
-              </h3>
+          <div className="grid md:grid-cols-2 gap-6">
 
-              <p>
-                {history.aiRecommendation.summary}
-              </p>
+            {history.otherSchemes.map((scheme, index) => (
 
-            </div>
+              <div
+                key={index}
+                className="
+                  bg-white/5
+                  border
+                  border-yellow-500/20
+                  rounded-2xl
+                  p-5
+                  backdrop-blur-md
+                "
+              >
 
-            <div className="space-y-6">
+                <h3 className="text-xl font-semibold text-white">
+                  {scheme.schemeName}
+                </h3>
 
-              {history.aiRecommendation.schemes?.map((scheme, index) => (
+                <p className="text-gray-300 mt-3">
+                  {scheme.description}
+                </p>
 
-                <div
-                  key={index}
-                  className="border rounded-xl p-5"
-                >
+              </div>
 
-                  <h3 className="text-xl font-bold text-blue-700 mb-4">
-                    {scheme.name}
-                  </h3>
+            ))}
 
-                  <div className="grid md:grid-cols-2 gap-6">
+          </div>
 
-                    <div>
+        </GlassCard>
 
-                      <h4 className="font-semibold mb-2">
-                        Why Eligible
-                      </h4>
+      )}
+        
 
-                      <ul className="list-disc list-inside">
+      {history.aiRecommendation && (
 
-                        {scheme.whyEligible?.map((item, i) => (
-                          <li key={i}>{item}</li>
-                        ))}
+        <GlassCard className="p-8 mb-6">
 
-                      </ul>
+          <h2 className="text-2xl font-bold text-purple-400 mb-6">
+            AI Recommendation
+          </h2>
 
-                    </div>
+          <div className="bg-white/5 border border-purple-500/20 rounded-2xl p-6 mb-8">
 
-                    <div>
+            <h3 className="text-xl font-semibold text-purple-300 mb-3">
+              Summary
+            </h3>
 
-                      <h4 className="font-semibold mb-2">
-                        Benefits
-                      </h4>
+            <p className="text-gray-300 leading-7">
+              {history.aiRecommendation.summary}
+            </p>
 
-                      <ul className="list-disc list-inside">
+          </div>
 
-                        {scheme.benefits?.map((item, i) => (
-                          <li key={i}>{item}</li>
-                        ))}
+          <div className="space-y-8">
 
-                      </ul>
+            {history.aiRecommendation.schemes?.map((scheme, index) => (
 
-                    </div>
+              <div
+                key={index}
+                className="
+                  bg-white/5
+                  border
+                  border-white/10
+                  rounded-2xl
+                  p-6
+                  backdrop-blur-md
+                "
+              >
 
-                    <div>
+                <h3 className="text-2xl font-bold text-cyan-300 mb-6">
+                  {scheme.name}
+                </h3>
 
-                      <h4 className="font-semibold mb-2">
-                        Documents
-                      </h4>
+                <div className="grid md:grid-cols-2 gap-8">
 
-                      <ul className="list-disc list-inside">
+                  <div>
 
-                        {scheme.documents?.map((item, i) => (
-                          <li key={i}>{item}</li>
-                        ))}
+                    <h4 className="text-lg font-semibold text-green-300 mb-3">
+                      Why Eligible
+                    </h4>
 
-                      </ul>
+                    <ul className="list-disc list-inside space-y-2 text-gray-300">
 
-                    </div>
+                      {scheme.whyEligible?.map((item, i) => (
+                        <li key={i}>{item}</li>
+                      ))}
 
-                    <div>
+                    </ul>
 
-                      <h4 className="font-semibold mb-2">
-                        Next Steps
-                      </h4>
+                  </div>
 
-                      <ul className="list-disc list-inside">
+                  <div>
 
-                        {scheme.nextSteps?.map((item, i) => (
-                          <li key={i}>{item}</li>
-                        ))}
+                    <h4 className="text-lg font-semibold text-blue-300 mb-3">
+                      Benefits
+                    </h4>
 
-                      </ul>
+                    <ul className="list-disc list-inside space-y-2 text-gray-300">
 
-                    </div>
+                      {scheme.benefits?.map((item, i) => (
+                        <li key={i}>{item}</li>
+                      ))}
+
+                    </ul>
+
+                  </div>
+
+                  <div>
+
+                    <h4 className="text-lg font-semibold text-yellow-300 mb-3">
+                      Documents
+                    </h4>
+
+                    <ul className="list-disc list-inside space-y-2 text-gray-300">
+
+                      {scheme.documents?.map((item, i) => (
+                        <li key={i}>{item}</li>
+                      ))}
+
+                    </ul>
+
+                  </div>
+
+                  <div>
+
+                    <h4 className="text-lg font-semibold text-pink-300 mb-3">
+                      Next Steps
+                    </h4>
+
+                    <ul className="list-disc list-inside space-y-2 text-gray-300">
+
+                      {scheme.nextSteps?.map((item, i) => (
+                        <li key={i}>{item}</li>
+                      ))}
+
+                    </ul>
 
                   </div>
 
                 </div>
 
-              ))}
+              </div>
 
-            </div>
-
-            <div className="mt-8 bg-blue-50 border-l-4 border-blue-600 p-5 rounded">
-
-              <h3 className="font-bold text-lg mb-2">
-                Final Advice
-              </h3>
-
-              <p>
-                {history.aiRecommendation.finalAdvice}
-              </p>
-
-            </div>
+            ))}
 
           </div>
 
-        )}
+          <div
+            className="
+              mt-8
+              rounded-2xl
+              border
+              border-cyan-400/30
+              bg-cyan-500/10
+              backdrop-blur-md
+              p-6
+            "
+          >
 
-      </div>
+            <h3 className="text-xl font-bold text-cyan-300 mb-3">
+              Final Advice
+            </h3>
+
+            <p className="text-gray-300 leading-7">
+              {history.aiRecommendation.finalAdvice}
+            </p>
+
+          </div>
+
+        </GlassCard>
+
+      )}
 
     </div>
-  );
+  </div>
+);
 };
+
 
 export default HistoryDetails;

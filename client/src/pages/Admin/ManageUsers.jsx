@@ -3,6 +3,10 @@ import { Search, Trash2, Users } from "lucide-react";
 import { toast } from "react-hot-toast";
 import api from "../../services/api";
 import BackButton from "../../components/BackButton";
+import GlassCard from "../../components/GlassCard";
+import GlassButton from "../../components/GlassButton";
+import GlassInput from "../../components/GlassInput";
+import PageTitle from "../../components/PageTitle";
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
@@ -71,140 +75,153 @@ const ManageUsers = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 p-8">
-      <BackButton />
+  <div className="min-h-screen">
+    <BackButton />
 
-      <div className="flex justify-between items-center mb-8">
+    <div className="flex flex-col md:flex-row justify-between md:items-center gap-6 mb-8">
 
-        <div className="flex items-center gap-3">
+      <div className="flex items-center gap-4">
+        <Users className="text-cyan-400" size={40} />
 
-          <Users className="text-blue-600" size={35} />
-
-          <h1 className="text-4xl font-bold text-blue-700">
-            Manage Users
-          </h1>
-
-        </div>
-
-        <div className="relative">
-
-          <Search
-            size={18}
-            className="absolute left-3 top-3 text-gray-500"
-          />
-
-          <input
-            type="text"
-            placeholder="Search users..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="pl-10 pr-4 py-2 rounded-lg border w-72"
-          />
-
-        </div>
-
+        <PageTitle
+          title="Manage Users"
+          subtitle="View and manage registered users"
+        />
       </div>
 
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+      <div className="relative w-full md:w-80">
 
-        <table className="min-w-full">
+        <Search
+          size={20}
+          className="absolute left-4 top-3.5 text-white"
+        />
 
-          <thead className="bg-blue-600 text-white">
-
-            <tr>
-
-              <th className="p-4 text-left">Name</th>
-
-              <th className="p-4 text-left">Email</th>
-
-              <th className="p-4 text-left">Role</th>
-
-              <th className="p-4 text-left">Joined</th>
-
-              <th className="p-4 text-center">Action</th>
-
-            </tr>
-
-          </thead>
-
-          <tbody>
-
-            {filteredUsers.length === 0 ? (
-              <tr>
-
-                <td
-                  colSpan="5"
-                  className="text-center py-8 text-gray-500"
-                >
-                  No users found.
-                </td>
-
-              </tr>
-            ) : (
-              filteredUsers.map((user) => (
-
-                <tr
-                  key={user._id}
-                  className="border-b hover:bg-gray-50"
-                >
-
-                  <td className="p-4 font-semibold">
-                    {user.name}
-                  </td>
-
-                  <td className="p-4">
-                    {user.email}
-                  </td>
-
-                  <td className="p-4">
-
-                    <span
-                      className={`px-3 py-1 rounded-full text-sm font-medium ${
-                        user.role === "admin"
-                          ? "bg-red-100 text-red-700"
-                          : "bg-green-100 text-green-700"
-                      }`}
-                    >
-                      {user.role}
-                    </span>
-
-                  </td>
-
-                  <td className="p-4">
-                    {new Date(user.createdAt).toLocaleDateString()}
-                  </td>
-
-                  <td className="p-4 text-center">
-
-                    <button
-                      onClick={() =>
-                        handleDelete(user._id, user.role)
-                      }
-                      disabled={user.role === "admin"}
-                      className={`px-4 py-2 rounded-lg text-white ${
-                        user.role === "admin"
-                          ? "bg-gray-400 cursor-not-allowed"
-                          : "bg-red-600 hover:bg-red-700"
-                      }`}
-                    >
-                      <Trash2 size={18} />
-                    </button>
-
-                  </td>
-
-                </tr>
-
-              ))
-            )}
-
-          </tbody>
-
-        </table>
+        <GlassInput
+          type="text"
+          placeholder="Search users..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="pl-12"
+        />
 
       </div>
 
     </div>
-  );
+
+    <GlassCard className="overflow-hidden">
+
+      <table className="w-full text-white">
+
+        <thead className="bg-white/10 backdrop-blur-md">
+
+          <tr>
+
+            <th className="px-6 py-4 text-left">
+              Name
+            </th>
+
+            <th className="px-6 py-4 text-left">
+              Email
+            </th>
+
+            <th className="px-6 py-4 text-left">
+              Role
+            </th>
+
+            <th className="px-6 py-4 text-left">
+              Joined
+            </th>
+
+            <th className="px-6 py-4 text-center">
+              Action
+            </th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          {filteredUsers.length === 0 ? (
+
+            <tr>
+
+              <td
+                colSpan="5"
+                className="py-10 text-center text-gray-300"
+              >
+                No users found.
+              </td>
+
+            </tr>
+
+          ) : (
+
+            filteredUsers.map((user) => (
+
+              <tr
+                key={user._id}
+                className="border-b border-white/10 hover:bg-white/10 transition"
+              >
+
+                <td className="px-6 py-5 font-semibold">
+                  {user.name}
+                </td>
+
+                <td className="px-6 py-5 text-gray-300">
+                  {user.email}
+                </td>
+
+                <td className="px-6 py-5">
+
+                  <span
+                    className={`px-4 py-1 rounded-full text-sm font-semibold ${
+                      user.role === "admin"
+                        ? "bg-red-500/20 text-red-300 border border-red-500/30"
+                        : "bg-green-500/20 text-green-300 border border-green-500/30"
+                    }`}
+                  >
+                    {user.role}
+                  </span>
+
+                </td>
+
+                <td className="px-6 py-5 text-gray-300">
+                  {new Date(user.createdAt).toLocaleDateString()}
+                </td>
+
+                <td className="px-6 py-5 text-center">
+
+                  <GlassButton
+                    onClick={() =>
+                      handleDelete(user._id, user.role)
+                    }
+                    disabled={user.role === "admin"}
+                    className={`p-2 ${
+                      user.role === "admin"
+                        ? "opacity-40 cursor-not-allowed"
+                        : "border-red-500 text-red-400 hover:border-red-400"
+                    }`}
+                  >
+                    <Trash2 size={18} />
+                  </GlassButton>
+
+                </td>
+
+              </tr>
+
+            ))
+
+          )}
+
+        </tbody>
+
+      </table>
+
+    </GlassCard>
+
+  </div>
+);
 };
 
 export default ManageUsers;

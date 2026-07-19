@@ -6,11 +6,28 @@ const BackButton = () => {
 
   return (
     <button
-      onClick={() => navigate("/admin")}
-      className="flex items-center gap-2 mb-6 text-blue-600 hover:text-blue-800 font-medium"
+      onClick={() => navigate(-1)}
+      className="
+        flex
+        items-center
+        gap-2
+        px-5
+        py-3
+        rounded-xl
+        bg-white/10
+        backdrop-blur-md
+        border
+        border-white/20
+        text-white
+        hover:bg-transparent
+        hover:border-blue-400
+        transition-all
+        duration-500
+        mb-6
+      "
     >
       <ArrowLeft size={18} />
-      Back to Dashboard
+      Back
     </button>
   );
 };

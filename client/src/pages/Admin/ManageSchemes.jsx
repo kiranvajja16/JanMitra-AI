@@ -73,19 +73,35 @@ const ManageSchemes = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 p-8">
+    <div className="min-h-screen p-8">
       <BackButton/>
       <div className="max-w-7xl mx-auto">
 
         <div className="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-8">
 
-          <h1 className="text-4xl font-bold text-blue-700">
+          <h1 className="text-5xl font-bold text-white drop-shadow-lg">
             Manage Government Schemes
           </h1>
 
           <button
             onClick={() => navigate("/admin/add-scheme")}
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl transition"
+            className="
+            flex
+            items-center
+            gap-2
+            px-5
+            py-3
+            rounded-xl
+            bg-white/10
+            backdrop-blur-md
+            border
+            border-white/20
+            text-white
+            hover:bg-transparent
+            hover:border-blue-400
+            transition-all
+            duration-500
+            "
           >
             <Plus size={18} />
             Add Scheme
@@ -96,27 +112,48 @@ const ManageSchemes = () => {
         <div className="relative mb-6">
 
           <Search
-            className="absolute left-4 top-3.5 text-gray-400"
-            size={18}
-          />
+className="absolute left-4 top-3.5 text-white"
+/>
 
           <input
             type="text"
             placeholder="Search schemes..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full border rounded-xl pl-11 pr-4 py-3 bg-white"
+            className="
+              w-full
+              rounded-xl
+              pl-11
+              pr-4
+              py-3
+              bg-white/10
+              backdrop-blur-md
+              border
+              border-white/20
+              text-white
+              placeholder:text-gray-300
+              focus:outline-none
+              focus:border-blue-400
+              "
           />
 
         </div>
 
-        <div className="bg-white rounded-xl shadow overflow-x-auto">
+        <div className="
+        bg-white/10
+        backdrop-blur-xl
+        border
+        border-white/20
+        rounded-3xl
+        shadow-2xl
+        overflow-hidden
+        ">
 
           <table className="w-full">
 
-            <thead className="bg-blue-600 text-white">
+            <thead className="bg-white/10 text-white backdrop-blur-md">
 
-              <tr>
+              <tr >
 
                 <th className="text-left px-5 py-4">
                   Scheme
@@ -157,25 +194,32 @@ const ManageSchemes = () => {
                 filteredSchemes.map((scheme) => (
                   <tr
                     key={scheme._id}
-                    className="border-b hover:bg-slate-50"
+                    className="
+                    border-b
+                    border-white/10
+                    hover:bg-white/10
+                    transition
+                    duration-300
+                    text-white
+                    "
                   >
-                    <td className="px-5 py-4 font-semibold">
+                    <td className="px-5 py-4 text-gray-200">
                       {scheme.schemeName}
                     </td>
 
-                    <td className="px-5 py-4">
+                    <td className="px-5 py-4 text-gray-200">
                       {scheme.category}
                     </td>
 
-                    <td className="px-5 py-4">
+                    <td className="px-5 py-4 text-gray-200">
                       {scheme.state}
                     </td>
 
-                    <td className="px-5 py-4">
+                    <td className="px-5 py-4 text-gray-200">
                       ₹ {scheme.eligibility?.maxIncome || "N/A"}
                     </td>
 
-                    <td className="px-5 py-4">
+                    <td className="px-5 py-4 text-gray-200">
 
                       <div className="flex justify-center gap-3">
 
@@ -183,7 +227,19 @@ const ManageSchemes = () => {
                           onClick={() =>
                             navigate(`/admin/edit-scheme/${scheme._id}`)
                           }
-                          className="bg-yellow-500 hover:bg-yellow-600 text-white p-2 rounded-lg transition"
+                          className="
+                          bg-white/10
+                          border
+                          border-yellow-400/50
+                          backdrop-blur-md
+                          text-yellow-300
+                          p-2
+                          rounded-lg
+                          hover:bg-transparent
+                          hover:border-yellow-300
+                          transition-all
+                          duration-500
+                          "
                         >
                           <Pencil size={18} />
                         </button>
@@ -192,7 +248,19 @@ const ManageSchemes = () => {
                           onClick={() =>
                             handleDelete(scheme._id)
                           }
-                          className="bg-red-600 hover:bg-red-700 text-white p-2 rounded-lg transition"
+                          className="
+                          bg-white/10
+                          border
+                          border-red-500/50
+                          backdrop-blur-md
+                          text-red-400
+                          p-2
+                          rounded-lg
+                          hover:bg-transparent
+                          hover:border-red-400
+                          transition-all
+                          duration-500
+                          "
                         >
                           <Trash2 size={18} />
                         </button>

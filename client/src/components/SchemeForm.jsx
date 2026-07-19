@@ -1,3 +1,10 @@
+import GlassButton from "./GlassButton";
+import GlassInput from "./GlassInput";
+import GlassSelect from "./GlassSelect";
+import GlassTextarea from "./GlassTextarea";
+
+const labelClass = "block mb-2 font-medium text-white";
+
 const SchemeForm = ({
   formData,
   handleChange,
@@ -10,208 +17,192 @@ const SchemeForm = ({
       onSubmit={handleSubmit}
       className="grid grid-cols-1 md:grid-cols-2 gap-6"
     >
-      {/* Scheme Name */}
+
       <div>
-        <label className="block mb-2 font-medium">Scheme Name</label>
-        <input
+        <label className={labelClass}>Scheme Name</label>
+        <GlassInput
           type="text"
           name="schemeName"
           value={formData.schemeName}
           onChange={handleChange}
-          className="w-full border rounded-lg p-3"
           placeholder="Enter Scheme Name"
           required
         />
       </div>
 
-      {/* Category */}
+
       <div>
-        <label className="block mb-2 font-medium">Category</label>
-        <input
+        <label className={labelClass}>Category</label>
+        <GlassInput
           type="text"
           name="category"
           value={formData.category}
           onChange={handleChange}
-          className="w-full border rounded-lg p-3"
           placeholder="Agriculture, Health, Education..."
           required
         />
       </div>
 
-      {/* State */}
+
       <div>
-        <label className="block mb-2 font-medium">State</label>
-        <input
+        <label className={labelClass}>State</label>
+        <GlassInput
           type="text"
           name="state"
           value={formData.state}
           onChange={handleChange}
-          className="w-full border rounded-lg p-3"
         />
       </div>
 
-      {/* Maximum Income */}
+
       <div>
-        <label className="block mb-2 font-medium">Maximum Income</label>
-        <input
+        <label className={labelClass}>Maximum Income</label>
+        <GlassInput
           type="number"
           name="maxIncome"
           value={formData.eligibility.maxIncome}
           onChange={handleEligibilityChange}
-          className="w-full border rounded-lg p-3"
           placeholder="500000"
         />
       </div>
 
-      {/* Minimum Age */}
+
       <div>
-        <label className="block mb-2 font-medium">Minimum Age</label>
-        <input
+        <label className={labelClass}>Minimum Age</label>
+        <GlassInput
           type="number"
           name="minAge"
           value={formData.eligibility.minAge}
           onChange={handleEligibilityChange}
-          className="w-full border rounded-lg p-3"
         />
       </div>
 
-      {/* Maximum Age */}
+
       <div>
-        <label className="block mb-2 font-medium">Maximum Age</label>
-        <input
+        <label className={labelClass}>Maximum Age</label>
+        <GlassInput
           type="number"
           name="maxAge"
           value={formData.eligibility.maxAge}
           onChange={handleEligibilityChange}
-          className="w-full border rounded-lg p-3"
         />
       </div>
 
-      {/* Occupation */}
+
       <div>
-        <label className="block mb-2 font-medium">Occupation</label>
-        <input
+        <label className={labelClass}>Occupation</label>
+        <GlassInput
           type="text"
           name="occupation"
           value={formData.eligibility.occupation}
           onChange={handleEligibilityChange}
-          className="w-full border rounded-lg p-3"
           placeholder="Farmer"
         />
       </div>
 
-      {/* Education */}
+
       <div>
-        <label className="block mb-2 font-medium">Education</label>
-        <input
+        <label className={labelClass}>Education</label>
+        <GlassInput
           type="text"
           name="education"
           value={formData.eligibility.education}
           onChange={handleEligibilityChange}
-          className="w-full border rounded-lg p-3"
           placeholder="Graduate"
         />
       </div>
 
-      {/* Gender */}
+
       <div>
-        <label className="block mb-2 font-medium">Gender</label>
-        <select
+        <label className={labelClass}>Gender</label>
+        <GlassSelect
           name="gender"
           value={formData.eligibility.gender}
           onChange={handleEligibilityChange}
-          className="w-full border rounded-lg p-3"
         >
-          <option value="Any">Any</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-        </select>
+          <option value="Any" className="text-black">Any</option>
+          <option value="Male" className="text-black">Male</option>
+          <option value="Female" className="text-black">Female</option>
+        </GlassSelect>
       </div>
 
-      {/* Eligibility Category */}
+
       <div>
-        <label className="block mb-2 font-medium">
-          Eligibility Category
-        </label>
-        <select
+        <label className={labelClass}>Eligibility Category</label>
+        <GlassSelect
           name="category"
           value={formData.eligibility.category}
           onChange={handleEligibilityChange}
-          className="w-full border rounded-lg p-3"
         >
-          <option value="Any">Any</option>
-          <option value="General">General</option>
-          <option value="OBC">OBC</option>
-          <option value="SC">SC</option>
-          <option value="ST">ST</option>
-        </select>
+          <option value="Any" className="text-black">Any</option>
+          <option value="General" className="text-black">General</option>
+          <option value="OBC" className="text-black">OBC</option>
+          <option value="SC" className="text-black">SC</option>
+          <option value="ST" className="text-black">ST</option>
+        </GlassSelect>
       </div>
 
-      {/* Official Link */}
+
       <div className="md:col-span-2">
-        <label className="block mb-2 font-medium">Official Link</label>
-        <input
+        <label className={labelClass}>Official Link</label>
+        <GlassInput
           type="url"
           name="officialLink"
           value={formData.officialLink}
           onChange={handleChange}
-          className="w-full border rounded-lg p-3"
           placeholder="https://..."
         />
       </div>
 
-      {/* Description */}
+
       <div className="md:col-span-2">
-        <label className="block mb-2 font-medium">Description</label>
-        <textarea
+        <label className={labelClass}>Description</label>
+        <GlassTextarea
           name="description"
           value={formData.description}
           onChange={handleChange}
           rows={4}
-          className="w-full border rounded-lg p-3"
           placeholder="Enter scheme description..."
           required
         />
       </div>
 
-      {/* Benefits */}
+
       <div className="md:col-span-2">
-        <label className="block mb-2 font-medium">
+        <label className={labelClass}>
           Benefits (Comma Separated)
         </label>
-        <textarea
+        <GlassTextarea
           name="benefits"
           value={formData.benefits}
           onChange={handleChange}
           rows={3}
-          className="w-full border rounded-lg p-3"
           placeholder="Benefit 1, Benefit 2, Benefit 3"
         />
       </div>
 
-      {/* Required Documents */}
+
       <div className="md:col-span-2">
-        <label className="block mb-2 font-medium">
+        <label className={labelClass}>
           Required Documents (Comma Separated)
         </label>
-        <textarea
+        <GlassTextarea
           name="requiredDocuments"
           value={formData.requiredDocuments}
           onChange={handleChange}
           rows={3}
-          className="w-full border rounded-lg p-3"
           placeholder="Aadhaar, Income Certificate, Bank Passbook"
         />
       </div>
 
-      {/* Submit */}
+
       <div className="md:col-span-2">
-        <button
+        <GlassButton
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition"
+          className="w-full justify-center text-lg font-semibold"
         >
           {submitText}
-        </button>
+        </GlassButton>
       </div>
     </form>
   );
