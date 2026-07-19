@@ -16,6 +16,7 @@ import EditScheme from "../pages/Admin/EditScheme";
 import AdminHistory from "../pages/Admin/AdminHistory";
 import HistoryDetails from "../pages/Admin/HistoryDetails";
 import Reports from "../pages/Admin/Reports";
+import HistoryDet from '../pages/History/HistoryDet'
 
 const AppRoutes = () => {
   return (
@@ -94,6 +95,10 @@ const AppRoutes = () => {
       <Route path="/eligibility" element={<Eligibility />} />
       <Route path="/results" element={<Results />}/>
       <Route path="/history" element={<History />} />
+      <Route
+        path="/history/:id"
+        element={<HistoryDet />}
+      />
       <Route path="/profile" element={<Profile />} />
       
     </Routes>

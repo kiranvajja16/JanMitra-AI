@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import logo from '../../assets/logo.png';
+import { Link } from "react-router-dom";
 
 const Login = ()=>{
     const navigate=useNavigate();
@@ -111,7 +112,17 @@ const Login = ()=>{
       >
         {loading ? "Logging in..." : "Login"}
       </button>
+      <p className="text-center mt-6">
+  Don't have an account?{" "}
+  <Link
+    to="/register"
+    className="text-blue-600 font-semibold hover:underline"
+  >
+    Register
+  </Link>
+</p>
     </form>
+    
   </div>
 );
 

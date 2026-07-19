@@ -9,3 +9,8 @@ export const deleteHistory = async (id) => {
   const response = await api.delete(`/history/${id}`);
   return response.data;
 };
+
+export const getHistoryById = async (id) => {
+  const response = await api.get(`/history/${id}`);
+  return response.data;
+};

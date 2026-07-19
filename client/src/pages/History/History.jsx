@@ -2,11 +2,12 @@ import { useEffect, useState ,useCallback} from "react";
 import MainLayout from "../../layouts/MainLayout";
 import { getHistory, deleteHistory } from "../../services/historyService";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const History = () => {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate();
   
 
   const fetchHistory = useCallback( async () => {
@@ -63,19 +64,28 @@ const History = () => {
               className="bg-white rounded-xl shadow-md p-6"
             >
               <div className="flex justify-between items-center">
-                <h2 className="font-bold text-lg">
-                  {item.createdAt
-  ? new Date(item.createdAt).toLocaleString()
-  : "No Date"}
-                </h2>
+              <h2 className="font-bold text-lg">
+                {item.createdAt
+                  ? new Date(item.createdAt).toLocaleString()
+                  : "No Date"}
+              </h2>
+
+              <div className="flex gap-3">
+                <button
+                  onClick={() => navigate(`/history/${item._id}`)}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
+                >
+                  View Details
+                </button>
 
                 <button
                   onClick={() => handleDelete(item._id)}
-                  className="bg-red-500 text-white px-4 py-2 rounded-lg"
+                  className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg"
                 >
                   Delete
                 </button>
               </div>
+            </div>
 
               <div className="grid grid-cols-2 gap-4 mt-5">
                 <div className="bg-green-100 rounded-lg p-4">

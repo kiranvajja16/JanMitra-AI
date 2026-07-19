@@ -12,9 +12,6 @@ const Eligibility = () => {
     category: "",
     annualIncome: "",
     occupation: "",
-    isFarmer: false,
-    isStudent: false,
-    isDisabled: false,
   });
 
   const handleChange = (e) => {
@@ -110,16 +107,23 @@ const Eligibility = () => {
             <label className="block mb-2 font-medium">Category</label>
 
             <select
-              name="category"
-              value={formData.category}
+              name="occupation"
+              value={formData.occupation}
               onChange={handleChange}
-              className="w-full border rounded-lg p-3"
+              className="w-full border rounded-lg px-4 py-3"
             >
-              <option value="">Select</option>
-              <option>General</option>
-              <option>OBC</option>
-              <option>SC</option>
-              <option>ST</option>
+              <option value="">Select Occupation</option>
+              <option value="Farmer">Farmer</option>
+              <option value="Student">Student</option>
+              <option value="Government Employee">Government Employee</option>
+              <option value="Private Employee">Private Employee</option>
+              <option value="Self-Employed">Self-Employed</option>
+              <option value="Business Owner">Business Owner</option>
+              <option value="Daily Wage Worker">Daily Wage Worker</option>
+              <option value="Homemaker">Homemaker</option>
+              <option value="Unemployed">Unemployed</option>
+              <option value="Retired">Retired</option>
+              <option value="Other">Other</option>
             </select>
           </div>
 
@@ -154,37 +158,7 @@ const Eligibility = () => {
           </div>
 
 
-          <div className="md:col-span-2 flex flex-wrap gap-6">
-            <label>
-              <input
-                type="checkbox"
-                name="isFarmer"
-                checked={formData.isFarmer}
-                onChange={handleChange}
-              />{" "}
-              Farmer
-            </label>
-
-            <label>
-              <input
-                type="checkbox"
-                name="isStudent"
-                checked={formData.isStudent}
-                onChange={handleChange}
-              />{" "}
-              Student
-            </label>
-
-            <label>
-              <input
-                type="checkbox"
-                name="isDisabled"
-                checked={formData.isDisabled}
-                onChange={handleChange}
-              />{" "}
-              Disabled
-            </label>
-          </div>
+          
 
           <div className="md:col-span-2">
             <button
