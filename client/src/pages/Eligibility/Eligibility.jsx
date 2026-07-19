@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const Eligibility = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     age: "",
@@ -32,6 +33,8 @@ const Eligibility = () => {
     e.preventDefault();
 
     try {
+      setLoading(true);
+
       const data = await checkEligibility(formData);
 
       navigate("/results", {
@@ -42,6 +45,8 @@ const Eligibility = () => {
     } catch (err) {
       console.error(err);
       alert("Failed to check eligibility.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -64,7 +69,7 @@ const Eligibility = () => {
             className="grid grid-cols-1 md:grid-cols-2 gap-8"
           >
 
-            {/* Age */}
+
 
             <div>
               <label className="block mb-3 text-white font-medium">
@@ -81,7 +86,7 @@ const Eligibility = () => {
               />
             </div>
 
-            {/* Gender */}
+
 
             <div>
               <label className="block mb-3 text-white font-medium">
@@ -165,7 +170,7 @@ const Eligibility = () => {
               </GlassSelect>
             </div>
 
-            {/* Income */}
+
 
             <div>
               <label className="block mb-3 text-white font-medium">
@@ -181,7 +186,6 @@ const Eligibility = () => {
               />
             </div>
 
-            {/* Occupation */}
 
             <div>
               <label className="block mb-3 text-white font-medium">
@@ -212,9 +216,17 @@ const Eligibility = () => {
 
               <GlassButton
                 type="submit"
-                className="w-full py-4 text-lg font-semibold hover:scale-[1.02]"
+                disabled={loading}
+                className="w-full py-4 text-lg font-semibold hover:scale-[1.02] disabled:opacity-60"
               >
-                Find Eligible Schemes
+                {loading ? (
+                  <div className="flex items-center justify-center gap-3">
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    Checking Eligibility...
+                  </div>
+                ) : (
+                  "Find Eligible Schemes"
+                )}
               </GlassButton>
 
             </div>
