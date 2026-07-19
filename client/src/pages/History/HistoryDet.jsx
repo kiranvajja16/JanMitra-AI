@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import MainLayout from "../../layouts/MainLayout";
-import { getHistoryById } from "../../services/historyService";
 import { toast } from "react-hot-toast";
+
+import MainLayout from "../../layouts/MainLayout";
+import GlassCard from "../../components/GlassCard";
+import GlassButton from "../../components/GlassButton";
+
+import { getHistoryById } from "../../services/historyService";
 
 const HistoryDet = () => {
   const { id } = useParams();
@@ -31,7 +35,11 @@ const HistoryDet = () => {
   if (loading) {
     return (
       <MainLayout>
-        <p className="text-center mt-10 text-lg">Loading...</p>
+        <div className="flex justify-center items-center h-[60vh]">
+          <div className="text-white text-2xl font-semibold">
+            Loading...
+          </div>
+        </div>
       </MainLayout>
     );
   }
@@ -39,152 +47,207 @@ const HistoryDet = () => {
   if (!history) {
     return (
       <MainLayout>
-        <p className="text-center mt-10 text-red-500">
-          History not found.
-        </p>
+        <div className="flex justify-center items-center h-[60vh]">
+          <div className="text-red-400 text-2xl font-semibold">
+            History not found.
+          </div>
+        </div>
       </MainLayout>
     );
   }
 
   return (
     <MainLayout>
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
 
-        <button
+        <GlassButton
           onClick={() => navigate("/history")}
-          className="flex items-center gap-2 mb-6 text-blue-600 hover:text-blue-800"
+          className="mb-8 flex items-center gap-2"
         >
           <ArrowLeft size={18} />
           Back to History
-        </button>
+        </GlassButton>
 
-        <h1 className="text-4xl font-bold text-blue-700 mb-8">
-          Recommendation Details
+        <h1 className="text-5xl font-bold text-white mb-3">
+          Recommendation{" "}
+          <span className="text-cyan-400">
+            Details
+          </span>
         </h1>
 
-        {/* Citizen Profile */}
+        <p className="text-gray-300 mb-10 text-lg">
+          View complete citizen information, eligible schemes,
+          AI recommendation and final advice.
+        </p>
 
-        <div className="bg-white rounded-xl shadow-md p-6 mb-8">
+                {/* Citizen Profile */}
 
-          <h2 className="text-2xl font-semibold mb-5">
+        <GlassCard className="p-8 mb-10">
+
+          <h2 className="text-3xl font-bold text-cyan-400 mb-8">
             Citizen Profile
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-            <p><strong>Age:</strong> {history.citizenProfile?.age}</p>
+            <GlassCard className="p-5">
+              <p className="text-gray-400">Age</p>
+              <p className="text-white text-xl font-semibold mt-2">
+                {history.citizenProfile?.age}
+              </p>
+            </GlassCard>
 
-            <p><strong>Gender:</strong> {history.citizenProfile?.gender}</p>
+            <GlassCard className="p-5">
+              <p className="text-gray-400">Gender</p>
+              <p className="text-white text-xl font-semibold mt-2">
+                {history.citizenProfile?.gender}
+              </p>
+            </GlassCard>
 
-            <p><strong>Occupation:</strong> {history.citizenProfile?.occupation}</p>
+            <GlassCard className="p-5">
+              <p className="text-gray-400">Occupation</p>
+              <p className="text-white text-xl font-semibold mt-2">
+                {history.citizenProfile?.occupation}
+              </p>
+            </GlassCard>
 
-            <p><strong>Education:</strong> {history.citizenProfile?.education || "N/A"}</p>
+            <GlassCard className="p-5">
+              <p className="text-gray-400">Education</p>
+              <p className="text-white text-xl font-semibold mt-2">
+                {history.citizenProfile?.education || "N/A"}
+              </p>
+            </GlassCard>
 
-            <p><strong>Category:</strong> {history.citizenProfile?.category}</p>
+            <GlassCard className="p-5">
+              <p className="text-gray-400">Category</p>
+              <p className="text-white text-xl font-semibold mt-2">
+                {history.citizenProfile?.category}
+              </p>
+            </GlassCard>
 
-            <p><strong>Annual Income:</strong> ₹{history.citizenProfile?.annualIncome}</p>
+            <GlassCard className="p-5">
+              <p className="text-gray-400">Annual Income</p>
+              <p className="text-white text-xl font-semibold mt-2">
+                ₹{history.citizenProfile?.annualIncome}
+              </p>
+            </GlassCard>
 
-            <p><strong>State:</strong> {history.citizenProfile?.state}</p>
+            <GlassCard className="p-5 md:col-span-2 lg:col-span-3">
+              <p className="text-gray-400">State</p>
+              <p className="text-white text-xl font-semibold mt-2">
+                {history.citizenProfile?.state}
+              </p>
+            </GlassCard>
 
           </div>
 
-        </div>
+        </GlassCard>
 
         {/* Eligible Schemes */}
 
-        <div className="mb-10">
+        <div className="mb-12">
 
-          <h2 className="text-2xl font-bold text-green-700 mb-5">
+          <h2 className="text-3xl font-bold text-green-400 mb-8">
             Eligible Schemes ({history.eligibleSchemes?.length || 0})
           </h2>
 
-          <div className="space-y-5">
+          <div className="space-y-8">
 
             {history.eligibleSchemes?.map((scheme, index) => (
-              <div
+
+              <GlassCard
                 key={index}
-                className="bg-green-50 border border-green-200 rounded-xl p-6"
+                className="p-8 hover:scale-[1.01] transition-all duration-300"
               >
 
-                <h3 className="text-xl font-bold">
+                <h3 className="text-3xl font-bold text-white">
                   {scheme.schemeName}
                 </h3>
 
-                <p className="mt-3 text-gray-700">
+                <p className="text-gray-300 mt-4 leading-8">
                   {scheme.description}
                 </p>
 
-                <div className="mt-4">
+                <div className="mt-8">
 
-                  <h4 className="font-semibold">
+                  <h4 className="text-xl font-semibold text-cyan-400 mb-3">
                     Benefits
                   </h4>
 
-                  <ul className="list-disc ml-6 mt-2">
+                  <ul className="list-disc ml-6 space-y-2 text-gray-200">
+
                     {scheme.benefits?.map((benefit, i) => (
                       <li key={i}>{benefit}</li>
                     ))}
+
                   </ul>
 
                 </div>
 
-                <div className="mt-4">
+                <div className="mt-8">
 
-                  <h4 className="font-semibold">
+                  <h4 className="text-xl font-semibold text-cyan-400 mb-3">
                     Required Documents
                   </h4>
 
-                  <ul className="list-disc ml-6 mt-2">
+                  <ul className="list-disc ml-6 space-y-2 text-gray-200">
+
                     {scheme.requiredDocuments?.map((doc, i) => (
                       <li key={i}>{doc}</li>
                     ))}
+
                   </ul>
 
                 </div>
 
                 {scheme.officialLink && (
+
                   <a
                     href={scheme.officialLink}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-block mt-5 text-blue-600 font-semibold hover:underline"
+                    className="inline-block mt-8 px-6 py-3 rounded-xl bg-cyan-500/20 border border-cyan-400/30 text-cyan-300 hover:bg-cyan-500/30 transition"
                   >
-                    Official Website →
+                    Visit Official Website →
                   </a>
+
                 )}
 
-              </div>
+              </GlassCard>
+
             ))}
 
           </div>
 
         </div>
 
-        {/* Other Schemes */}
+                {/* Other Schemes */}
 
-        <div className="mb-10">
+        <div className="mb-12">
 
-          <h2 className="text-2xl font-bold text-yellow-700 mb-5">
+          <h2 className="text-3xl font-bold text-yellow-400 mb-8">
             Other Schemes ({history.otherSchemes?.length || 0})
           </h2>
 
-          <div className="space-y-5">
+          <div className="space-y-8">
 
             {history.otherSchemes?.map((scheme, index) => (
-              <div
+
+              <GlassCard
                 key={index}
-                className="bg-yellow-50 border border-yellow-200 rounded-xl p-6"
+                className="p-8 hover:scale-[1.01] transition-all duration-300"
               >
 
-                <h3 className="text-xl font-bold">
+                <h3 className="text-3xl font-bold text-white">
                   {scheme.schemeName}
                 </h3>
 
-                <p className="mt-3 text-gray-700">
+                <p className="text-gray-300 mt-4 leading-8">
                   {scheme.description}
                 </p>
 
-              </div>
+              </GlassCard>
+
             ))}
 
           </div>
@@ -193,31 +256,33 @@ const HistoryDet = () => {
 
         {/* AI Recommendation */}
 
-        <div className="bg-blue-50 rounded-xl shadow-md p-6 mb-8">
+        <GlassCard className="p-8 mb-10">
 
-          <h2 className="text-2xl font-bold text-blue-700 mb-4">
-            AI Recommendation
+          <h2 className="text-3xl font-bold text-cyan-400 mb-5">
+            🤖 AI Recommendation
           </h2>
 
-          <p className="text-gray-700">
-            {history.aiRecommendation?.summary}
+          <p className="text-gray-200 leading-8">
+            {history.aiRecommendation?.summary ||
+              "No AI recommendation available."}
           </p>
 
-        </div>
+        </GlassCard>
 
         {/* Final Advice */}
 
-        <div className="bg-purple-50 rounded-xl shadow-md p-6">
+        <GlassCard className="p-8 mb-10">
 
-          <h2 className="text-2xl font-bold text-purple-700 mb-4">
-            Final Advice
+          <h2 className="text-3xl font-bold text-green-400 mb-5">
+            💡 Final Advice
           </h2>
 
-          <p className="text-gray-700">
-            {history.aiRecommendation?.finalAdvice}
+          <p className="text-gray-200 leading-8">
+            {history.aiRecommendation?.finalAdvice ||
+              "No final advice available."}
           </p>
 
-        </div>
+        </GlassCard>
 
       </div>
     </MainLayout>

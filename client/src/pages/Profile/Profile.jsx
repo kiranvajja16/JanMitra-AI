@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import MainLayout from "../../layouts/MainLayout";
+import GlassCard from "../../components/GlassCard";
 import api from "../../services/api";
 import { toast } from "react-hot-toast";
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
+
   const [stats, setStats] = useState({
     totalChecks: 0,
     totalEligible: 0,
@@ -37,107 +39,130 @@ const Profile = () => {
   if (loading) {
     return (
       <MainLayout>
-        <p className="text-center mt-10">Loading...</p>
+        <div className="text-center text-white text-xl mt-20">
+          Loading...
+        </div>
       </MainLayout>
     );
   }
 
   return (
     <MainLayout>
-      <h1 className="text-3xl font-bold text-blue-700 mb-8">
-        My Profile
-      </h1>
+      <div className="max-w-6xl mx-auto">
 
-      <div className="bg-white rounded-xl shadow-lg p-8">
+        <h1 className="text-5xl font-bold text-white mb-10">
+          My <span className="text-cyan-400">Profile</span>
+        </h1>
 
-        <div className="flex items-center gap-5 mb-8">
+        <GlassCard className="p-8">
 
-          <div className="w-20 h-20 rounded-full bg-blue-600 text-white flex items-center justify-center text-3xl font-bold">
-            {profile?.name?.charAt(0).toUpperCase()}
+          <div className="flex flex-col md:flex-row items-center gap-6">
+
+            <div className="w-24 h-24 rounded-full bg-cyan-500 flex items-center justify-center text-4xl font-bold text-white shadow-xl">
+              {profile?.name?.charAt(0).toUpperCase()}
+            </div>
+
+            <div>
+
+              <h2 className="text-4xl font-bold text-white">
+                {profile?.name}
+              </h2>
+
+              <p className="text-gray-300 mt-2">
+                {profile?.email}
+              </p>
+
+              <span className="inline-block mt-4 px-4 py-2 rounded-full bg-cyan-500/20 border border-cyan-400/30 text-cyan-300 capitalize">
+                {profile?.role}
+              </span>
+
+            </div>
+
           </div>
 
-          <div>
-            <h2 className="text-2xl font-bold">
-              {profile?.name}
-            </h2>
+          <div className="border-t border-white/20 my-10"></div>
 
-            <p className="text-gray-500">
-              {profile?.email}
-            </p>
+          <h2 className="text-3xl font-bold text-white mb-6">
+            Account Information
+          </h2>
 
-            <span className="inline-block mt-2 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold capitalize">
-              {profile?.role}
-            </span>
+          <div className="grid md:grid-cols-2 gap-6">
+
+            <GlassCard className="p-6">
+              <p className="text-gray-400">Full Name</p>
+              <p className="text-white text-xl font-semibold mt-2">
+                {profile?.name}
+              </p>
+            </GlassCard>
+
+            <GlassCard className="p-6">
+              <p className="text-gray-400">Email</p>
+              <p className="text-white text-xl font-semibold mt-2">
+                {profile?.email}
+              </p>
+            </GlassCard>
+
+            <GlassCard className="p-6">
+              <p className="text-gray-400">Role</p>
+              <p className="text-white text-xl font-semibold mt-2 capitalize">
+                {profile?.role}
+              </p>
+            </GlassCard>
+
+            <GlassCard className="p-6">
+              <p className="text-gray-400">Joined On</p>
+              <p className="text-white text-xl font-semibold mt-2">
+                {new Date(profile?.createdAt).toLocaleDateString()}
+              </p>
+            </GlassCard>
+
           </div>
 
-        </div>
+          <h2 className="text-3xl font-bold text-white mt-12 mb-6">
+            My Activity
+          </h2>
 
-        <hr className="mb-8" />
+          <div className="grid md:grid-cols-3 gap-6">
 
-        <h3 className="text-xl font-semibold mb-5">
-          Account Information
-        </h3>
+            <GlassCard className="p-8 text-center">
 
-        <div className="grid md:grid-cols-2 gap-6">
+              <h3 className="text-gray-300 uppercase tracking-wide">
+                Eligibility Checks
+              </h3>
 
-          <div className="bg-gray-50 p-5 rounded-lg">
-            <p className="text-gray-500">Full Name</p>
-            <p className="font-semibold text-lg">
-              {profile?.name}
-            </p>
+              <p className="text-5xl font-bold text-cyan-400 mt-4">
+                {stats.totalChecks}
+              </p>
+
+            </GlassCard>
+
+            <GlassCard className="p-8 text-center">
+
+              <h3 className="text-gray-300 uppercase tracking-wide">
+                Eligible Schemes
+              </h3>
+
+              <p className="text-5xl font-bold text-green-400 mt-4">
+                {stats.totalEligible}
+              </p>
+
+            </GlassCard>
+
+            <GlassCard className="p-8 text-center">
+
+              <h3 className="text-gray-300 uppercase tracking-wide">
+                History
+              </h3>
+
+              <p className="text-5xl font-bold text-yellow-400 mt-4">
+                {stats.totalHistory}
+              </p>
+
+            </GlassCard>
+
           </div>
 
-          <div className="bg-gray-50 p-5 rounded-lg">
-            <p className="text-gray-500">Email</p>
-            <p className="font-semibold text-lg">
-              {profile?.email}
-            </p>
-          </div>
-
-          <div className="bg-gray-50 p-5 rounded-lg">
-            <p className="text-gray-500">Role</p>
-            <p className="font-semibold text-lg capitalize">
-              {profile?.role}
-            </p>
-          </div>
-
-          <div className="bg-gray-50 p-5 rounded-lg">
-            <p className="text-gray-500">Joined On</p>
-            <p className="font-semibold text-lg">
-              {new Date(profile?.createdAt).toLocaleDateString()}
-            </p>
-          </div>
-
-        </div>
-
-        <h3 className="text-xl font-semibold mt-10 mb-5">
-          My Activity
-        </h3>
-
-        <div className="grid md:grid-cols-3 gap-6">
-
-          <div className="bg-blue-100 rounded-xl p-6 text-center">
-            <p className="text-3xl font-bold text-blue-700">
-              {stats.totalChecks}
-            </p>
-            <p>Total Eligibility Checks</p>
-          </div>
-
-          <div className="bg-green-100 rounded-xl p-6 text-center">
-            <p className="text-3xl font-bold text-green-700">
-              {stats.totalEligible}
-            </p>
-            <p>Eligible Schemes</p>
-          </div>
-
-          <div className="bg-yellow-100 rounded-xl p-6 text-center">
-            <p className="text-3xl font-bold text-yellow-700">
-              {stats.totalHistory}
-            </p>
-            <p>Recommendation History</p>
-          </div>
-
-        </div>
+        </GlassCard>
 
       </div>
     </MainLayout>

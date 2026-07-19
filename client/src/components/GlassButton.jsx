@@ -1,30 +1,25 @@
 const GlassButton = ({
   children,
-  onClick,
   className = "",
-  type = "button",
-  disabled = false,
+  ...props
 }) => {
   return (
     <button
-        type={type}
-        onClick={onClick}
-        disabled={disabled}
-        className={`
-            px-5
-            py-3
-            rounded-xl
-            bg-white/10
-            backdrop-blur-md
-            border
-            border-white/20
-            text-white
-            hover:bg-transparent
-            transition-all
-            duration-500
-            ${className}
-        `}
-        >
+      {...props}
+      className={`
+        px-6
+        py-3
+        rounded-xl
+        bg-white/10
+        backdrop-blur-md
+        border border-white/20
+        text-white
+        hover:bg-cyan-500/20
+        transition-all
+        duration-300
+        ${className}
+      `}
+    >
       {children}
     </button>
   );

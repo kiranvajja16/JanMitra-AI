@@ -1,13 +1,25 @@
 const DashboardCard = ({ title, value, color }) => {
   return (
-    <div className="bg-white rounded-2xl shadow-md p-6 hover:shadow-xl transition duration-300">
-      <h3 className="text-gray-500 text-sm font-medium">
+    <div
+      className="
+      bg-white/10
+      backdrop-blur-xl
+      border border-white/20
+      rounded-3xl
+      shadow-xl
+      p-6
+      hover:scale-105
+      transition-all
+      duration-300
+    "
+    >
+      <h3 className="text-gray-300 text-sm uppercase tracking-wide">
         {title}
       </h3>
 
-      <h2 className={`text-3xl font-bold mt-3 ${color}`}>
+      <h1 className={`text-5xl font-bold mt-4 ${color}`}>
         {value}
-      </h2>
+      </h1>
     </div>
   );
 };
