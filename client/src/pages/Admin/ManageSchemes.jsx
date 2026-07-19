@@ -3,6 +3,7 @@ import { Search, Plus, Pencil, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import api from "../../services/api";
+import BackButton from "../../components/BackButton";
 
 const ManageSchemes = () => {
   const navigate = useNavigate();
@@ -73,7 +74,7 @@ const ManageSchemes = () => {
 
   return (
     <div className="min-h-screen bg-slate-100 p-8">
-
+      <BackButton/>
       <div className="max-w-7xl mx-auto">
 
         <div className="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-8">

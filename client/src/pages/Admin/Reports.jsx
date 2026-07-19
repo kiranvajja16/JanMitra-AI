@@ -6,6 +6,7 @@ import {
   History,
   Star,
 } from "lucide-react";
+import BackButton from "../../components/BackButton";
 
 import {
   PieChart,
@@ -82,14 +83,14 @@ const Reports = () => {
 
   return (
     <div className="min-h-screen bg-slate-100 p-8">
-
+      <BackButton/>
       <div className="max-w-7xl mx-auto">
 
         <h1 className="text-4xl font-bold text-blue-700 mb-8">
           Reports & Analytics
         </h1>
 
-        {/* Stats */}
+        
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
 
@@ -204,7 +205,7 @@ const Reports = () => {
           </div>
 
         </div>
-                {/* Top Recommended Schemes */}
+                
 
         <div className="bg-white rounded-xl shadow p-6 mb-8">
 

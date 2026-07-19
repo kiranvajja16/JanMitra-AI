@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import api from "../../services/api";
 import SchemeForm from "../../components/SchemeForm";
+import BackButton from "../../components/BackButton";
 
 const EditScheme = () => {
   const { id } = useParams();
@@ -129,6 +130,7 @@ const EditScheme = () => {
 
   return (
     <div className="min-h-screen bg-slate-100 py-10 px-4">
+      <EditScheme/>
       <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-xl p-8">
         <h1 className="text-3xl font-bold text-blue-700 mb-8">
           Edit Government Scheme

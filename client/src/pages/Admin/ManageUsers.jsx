@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Search, Trash2, Users } from "lucide-react";
 import { toast } from "react-hot-toast";
 import api from "../../services/api";
+import BackButton from "../../components/BackButton";
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
@@ -71,6 +72,7 @@ const ManageUsers = () => {
 
   return (
     <div className="min-h-screen bg-slate-100 p-8">
+      <BackButton />
 
       <div className="flex justify-between items-center mb-8">
 

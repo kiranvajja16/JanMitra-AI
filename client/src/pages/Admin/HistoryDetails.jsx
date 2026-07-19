@@ -3,6 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import api from "../../services/api";
+import BackButton from "../../components/BackButton";
 
 const HistoryDetails = () => {
   const { id } = useParams();
@@ -47,7 +48,7 @@ const HistoryDetails = () => {
 
   return (
     <div className="min-h-screen bg-slate-100 p-8">
-
+      <BackButton/>
       <div className="max-w-6xl mx-auto">
 
         <button

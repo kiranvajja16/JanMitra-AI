@@ -3,6 +3,7 @@ import { Search, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import api from "../../services/api";
+import BackButton from "../../components/BackButton";
 
 const AdminHistory = () => {
   const navigate = useNavigate();
@@ -54,6 +55,7 @@ const AdminHistory = () => {
 
   return (
     <div className="min-h-screen bg-slate-100 p-8">
+      <BackButton/>
       <div className="max-w-7xl mx-auto">
 
         <div className="flex justify-between items-center mb-8">
