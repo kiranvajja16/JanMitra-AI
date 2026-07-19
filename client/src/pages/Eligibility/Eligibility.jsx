@@ -93,14 +93,25 @@ const Eligibility = () => {
                 value={formData.gender}
                 onChange={handleChange}
               >
-                <option value="">Select Gender</option>
-                <option>Male</option>
-                <option>Female</option>
-                <option>Other</option>
+                <option value="" disabled className="text-gray-500 bg-gray-900">
+                  Select Gender
+                </option>
+
+                <option value="Male" className="bg-gray-900 text-white">
+                  Male
+                </option>
+
+                <option value="Female" className="bg-gray-900 text-white">
+                  Female
+                </option>
+
+                <option value="Any" className="bg-gray-900 text-white">
+                  Any
+                </option>
               </GlassSelect>
             </div>
 
-            {/* State */}
+            
 
             <div>
               <label className="block mb-3 text-white font-medium">
@@ -116,7 +127,7 @@ const Eligibility = () => {
               />
             </div>
 
-            {/* Category */}
+            
 
             <div>
               <label className="block mb-3 text-white font-medium">
@@ -128,12 +139,29 @@ const Eligibility = () => {
                 value={formData.category}
                 onChange={handleChange}
               >
-                <option value="">Select Category</option>
-                <option>General</option>
-                <option>OBC</option>
-                <option>SC</option>
-                <option>ST</option>
-                <option>EWS</option>
+                <option value="" disabled className="text-gray-500 bg-gray-900">
+                  Select Category
+                </option>
+
+                <option value="General" className="bg-gray-900 text-white">
+                  General
+                </option>
+
+                <option value="OBC" className="bg-gray-900 text-white">
+                  OBC
+                </option>
+
+                <option value="SC" className="bg-gray-900 text-white">
+                  SC
+                </option>
+
+                <option value="ST" className="bg-gray-900 text-white">
+                  ST
+                </option>
+
+                <option value="Any" className="bg-gray-900 text-white">
+                  Any
+                </option>
               </GlassSelect>
             </div>
 
@@ -165,18 +193,18 @@ const Eligibility = () => {
                 value={formData.occupation}
                 onChange={handleChange}
               >
-                <option value="">Select Occupation</option>
-                <option value="Farmer">Farmer</option>
-                <option value="Student">Student</option>
-                <option value="Government Employee">Government Employee</option>
-                <option value="Private Employee">Private Employee</option>
-                <option value="Self-Employed">Self-Employed</option>
-                <option value="Business Owner">Business Owner</option>
-                <option value="Daily Wage Worker">Daily Wage Worker</option>
-                <option value="Homemaker">Homemaker</option>
-                <option value="Unemployed">Unemployed</option>
-                <option value="Retired">Retired</option>
-                <option value="Other">Other</option>
+                <option value="" >Select Occupation</option>
+                <option value="Farmer" className="bg-gray-900 text-white">Farmer</option>
+                <option value="Student" className="bg-gray-900 text-white">Student</option>
+                <option value="Government Employee" className="bg-gray-900 text-white">Government Employee</option>
+                <option value="Private Employee" className="bg-gray-900 text-white">Private Employee</option>
+                <option value="Self-Employed" className="bg-gray-900 text-white">Self-Employed</option>
+                <option value="Business Owner" className="bg-gray-900 text-white">Business Owner</option>
+                <option value="Daily Wage Worker" className="bg-gray-900 text-white">Daily Wage Worker</option>
+                <option value="Homemaker" className="bg-gray-900 text-white">Homemaker</option>
+                <option value="Unemployed" className="bg-gray-900 text-white">Unemployed</option>
+                <option value="Retired" className="bg-gray-900 text-white">Retired</option>
+                <option value="Other" className="bg-gray-900 text-white">Other</option>
               </GlassSelect>
             </div>
 
